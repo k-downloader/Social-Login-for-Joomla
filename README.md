@@ -1,6 +1,6 @@
 Social Login extension for Joomla CMS.
 =======
-This extension enables social login on a Joomla website letting users log in through their existing IDs such as Facebook, Twitter, Google, Yahoo, Vkontakte and over 15 more! Social Login eliminates long registration process i.e. filling up a long registration form, verifying email ID, remembering another username and password so your users are just one click away from logging in to your website. Other than social login, LoginRadius's Social Login also includes User Profile Data and Social Analytics.
+This extension enables social login on a Joomla website letting users log in through their existing IDs such as Facebook, Twitter, Google, Yahoo, Vkontakte and over 15 more! Social Login eliminates the annoying registration process that all online users have come to dread, so your users are just one click away from logging in to your website. It also attracts more traffic to your website and helps boost your user base. Other than social login, LoginRadius's Social Login also includes User Profile Data and Social Analytics.
 
 Available in 14 Languages
 ===
@@ -8,29 +8,33 @@ Social Login Joomla extension is available in 14 Languages - English, Spanish, F
 
 Demo Websites
 ===
-http://Joomla.LoginRadius.com
-
-http://JCommunity.LoginRadius.com
+<ul>
+<li>http://Joomla.LoginRadius.com</li>
+<li>http://JCommunity.LoginRadius.com</li>
+</ul>
 
 Communities supported by Social Login Joomla extension
 ===
-JomSocial
+<ul>
+<li>JomSocial</li>
+<li>Community Builder</li>
+<li>Jcomment</li>
+<li>JomFish</li>
+<li>Kunena</li>
+<li>K2 content management</li>
+<li>Virtue Mart</li>
+</ul>
 
-Community Builder
-
-Jcomment
-
-JomFish
-
-Kunena
-
-K2 content management
-
-Virtue Mart
-
-Download
-===
-Download Social Login extension on <a href="http://extensions.joomla.org/extensions/social-web/authentication-cloud-based/19293"> Joomla Extension Directory</a>
+</ul><h3>Download</h3>
+<ul>
+<li>Download Social Login extension for <a href="https://github.com/LoginRadius/Social-Login-for-Joomla/blob/master/Joomla-v1.5.zip?raw=true"> Joomla-v1.5</a>
+</li>
+<li>Download Social Login extension for <a href="https://github.com/LoginRadius/Social-Login-for-Joomla/blob/master/Joomla-v1.6.zip?raw=true"> Joomla-v1.6</a>
+</li>
+<li>Download Social Login extension for <a href="https://github.com/LoginRadius/Social-Login-for-Joomla/blob/master/Joomla-v1.7.zip?raw=true"> Joomla-v1.7</a>
+</li>
+<li>Download Social Login extension for <a href="https://github.com/LoginRadius/Social-Login-for-Joomla/blob/master/Joomla-v2.5.zip?raw=true"> Joomla-v2.5</a>
+</li>
 
 Authors and Contributors
 ===
