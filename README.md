@@ -15,16 +15,22 @@ http://JCommunity.LoginRadius.com
 Communities supported by Social Login Joomla extension
 ===
 JomSocial
+
 Community Builder
+
 Jcomment
+
 JomFish
+
 Kunena
+
 K2 content management
+
 Virtue Mart
 
 Download
 ===
-Download Social Login extension on Joomla Extension Directory
+Download Social Login extension on <a href="http://extensions.joomla.org/extensions/social-web/authentication-cloud-based/19293"> Joomla Extension Directory</a>
 
 Authors and Contributors
 ===
