@@ -25,7 +25,8 @@ Communities supported by Social Login Joomla extension
 <li>Virtue Mart</li>
 </ul>
 
-</ul><h3>Download</h3>
+Download
+===
 <ul>
 <li>Download Social Login extension for <a href="https://github.com/LoginRadius/Social-Login-for-Joomla/blob/master/Joomla-v1.5.zip?raw=true"> Joomla-v1.5</a>
 </li>
@@ -35,6 +36,7 @@ Communities supported by Social Login Joomla extension
 </li>
 <li>Download Social Login extension for <a href="https://github.com/LoginRadius/Social-Login-for-Joomla/blob/master/Joomla-v2.5.zip?raw=true"> Joomla-v2.5</a>
 </li>
+</ul>
 
 Authors and Contributors
 ===
