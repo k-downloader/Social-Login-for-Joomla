@@ -7,7 +7,7 @@ Download
 <ul>
 <li>Download Social Login extension for <a href="https://github.com/downloads/LoginRadius/Social-Login-for-Joomla/Social-Login-2-for-Joomlav1.5.zip">Joomla-v1.5</a>
 </li>
-<li>Download Social Login extension for <a href="https://github.com/downloads/LoginRadius/Social-Login-for-Joomla/Social-Login-2-for-Joomlav1.6,1.7,2.5.zip">Joomla-v1.6, v1.7, v2.5</a>
+<li>Download Social Login extension for <a href="https://github.com/downloads/LoginRadius/Social-Login-for-Joomla/Social-Login-2-for-Joomla-v1.6,1.7,2.5.zip">Joomla-v1.6, v1.7, v2.5</a>
 </li>
 </ul>
 
