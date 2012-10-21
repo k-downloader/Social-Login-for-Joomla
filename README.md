@@ -18,8 +18,8 @@ Social Login Joomla extension is available in 14 Languages - English, Spanish, F
 Demo Websites
 ===
 <ul>
-<li>http://Joomla.LoginRadius.com</li>
-<li>http://JCommunity.LoginRadius.com</li>
+<li><a href="http://Joomla.LoginRadius.com" target="_blank">Joomla Demo</a></li>
+<li><a href="http://JCommunity.LoginRadius.com" target="_blank">Demo for JomSocial, Community Builder, K2 Forum</a></li>
 </ul>
 
 Communities supported by Social Login Joomla extension
