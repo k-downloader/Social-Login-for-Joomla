@@ -1,19 +1,19 @@
-Social Login extension for Joomla CMS.
+Social Login and Social Share extension for Joomla CMS.
 =======
-This extension enables social login on a Joomla website letting users log in through their existing IDs such as Facebook, Twitter, Google, Yahoo, Vkontakte and over 15 more! Social Login eliminates the annoying registration process that all online users have come to dread, so your users are just one click away from logging in to your website. It also attracts more traffic to your website and helps boost your user base. Other than social login, LoginRadius's Social Login also includes User Profile Data and Social Analytics.
+This extension enables social login and social share on a Joomla website letting users log in and share through their existing IDs such as Facebook, Twitter, Google, Yahoo, Vkontakte and over 15 more! Social Login eliminates the annoying registration process that all online users have come to dread, so your users are just one click away from logging in to your website. It also attracts more traffic to your website and helps boost your user base. Other than social login, LoginRadius's Social Login also includes User Profile Data and Social Analytics.
 
 Download
 ===
 <ul>
-<li>Download Social Login extension for <a href="https://github.com/downloads/LoginRadius/Social-Login-for-Joomla/Social-Login-2-for-Joomlav1.5.zip">Joomla-v1.5</a>
+<li>Download Social Login and Social Share extension for <a href="https://github.com/downloads/LoginRadius/Social-Login-for-Joomla/Social-Login-and-Social-Share-v2-for-Joomlav1.5.zip">Joomla-v1.5</a>
 </li>
-<li>Download Social Login extension for <a href="https://github.com/downloads/LoginRadius/Social-Login-for-Joomla/Social-Login-2-for-Joomla-v1.6,1.7,2.5.zip">Joomla-v1.6, v1.7, v2.5</a>
+<li>Download Social Login and Social Share extension for <a href="https://github.com/downloads/LoginRadius/Social-Login-for-Joomla/Social-Login-and-Social-Share-v2-for-Joomla-v1.6,1.7,2.5.zip">Joomla-v1.6, v1.7, v2.5</a>
 </li>
 </ul>
 
 Available in 14 Languages
 ===
-Social Login Joomla extension is available in 14 Languages - English, Spanish, French, Italian, Russian, German, Greek, Danish, Arabic, Ukrainian, Dutch, Estonian, Polish, Portuguese
+Social Login and Social Share Joomla extension is available in 14 Languages - English, Spanish, French, Italian, Russian, German, Greek, Danish, Arabic, Ukrainian, Dutch, Estonian, Polish, Portuguese
 
 Demo Websites
 ===
@@ -36,7 +36,7 @@ Communities supported by Social Login Joomla extension
 
 Authors and Contributors
 ===
-Social Login extension for Joomla is developed by LoginRadius (http://www.LoginRadius.com). Please help us to improve it by reporting bugs and suggestions to hello@loginradius.com
+Social Login and Social Share extension for Joomla is developed by LoginRadius (http://www.LoginRadius.com). Please help us to improve it by reporting bugs and suggestions to hello@loginradius.com
 
 Support or Contact
 ===
