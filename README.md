@@ -5,9 +5,11 @@ This extension enables social login and social share on a Joomla website letting
 Download
 ===
 <ul>
-<li>Download Social Login and Social Share extension for <a href="https://github.com/downloads/LoginRadius/Social-Login-for-Joomla/Social-Login-and-Social-Share-v2-for-Joomlav1.5.zip">Joomla-v1.5</a>
+<li>Download Social Login and Social Share extension for <a href="http://loginradius-social-plugins.s3.amazonaws.com/joomla/loginradius-for-Joomla-3.0.zip">Joomla-v3.0</a>
 </li>
-<li>Download Social Login and Social Share extension for <a href="https://github.com/downloads/LoginRadius/Social-Login-for-Joomla/Social-Login-and-Social-Share-v2-for-Joomla-v1.6,1.7,2.5.zip">Joomla-v1.6, v1.7, v2.5</a>
+<li>Download Social Login and Social Share extension for <a href="http://loginradius-social-plugins.s3.amazonaws.com/joomla/loginradius-for-Joomla-2.5.zip">Joomla-v1.6, v1.7, v2.5</a>
+</li>
+<li>Download Social Login and Social Share extension for <a href="http://loginradius-social-plugins.s3.amazonaws.com/joomla/loginradius-for-Joomla-1.5.zip">Joomla-v1.5</a>
 </li>
 </ul>
 
