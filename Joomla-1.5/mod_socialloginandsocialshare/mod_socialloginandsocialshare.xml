@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<install type="module" version="1.5.0">
+
+	<name>Social Login</name>
+
+	<author>LoginRadius</author>
+
+	<creationDate>2012-01-01</creationDate>
+
+	<copyright>Copyright (C) 2012 - till Open Source Matters. All rights reserved.</copyright>
+
+	<license>GNU/GPL v2</license>
+
+	<authorEmail>developers@loginradius.com</authorEmail>
+
+	<authorUrl>www.loginradius.com</authorUrl>
+
+	<version>2.0</version>
+
+	<description>LoginRadius enables social login and social share for your joomla websites.</description>
+
+	<files>
+
+		<filename module="mod_socialloginandsocialshare">mod_socialloginandsocialshare.php</filename>
+
+		<filename module="mod_socialloginandsocialshare">lrstyle.css</filename>
+		
+		<filename module="mod_socialloginandsocialshare">helper.php</filename>
+
+		<filename module="mod_socialloginandsocialshare">index.html</filename>
+
+		<filename module="mod_socialloginandsocialshare">tmpl/default.php</filename>
+
+		<filename module="mod_socialloginandsocialshare">tmpl/index.html</filename>
+
+	</files>
+
+
+	<params>
+	<param name="@spacer" type="spacer" default="" label="" description="" />
+   <param name="moduleclass_sfx" type="text" default="" label="MODULE_SUFFIX" description="PARAMMODULECLASSSUFFIX" />
+   <param name="pretext" type="textarea" cols="30" rows="2" default="" label="PRE_TEXT" description="PARAMPRETEXT" />
+   <param name="posttext" type="textarea" cols="30" rows="2" label="POST_TEXT" description="PARAMPOSTTEXT" />
+   <param name="login" type="menuitem" default="" disable="separator" label="MOD_LOGIN_REDIRECTION_URL" description="PARAMLOGINREDIRECTURL" state="1" />
+
+	<param name="logout" type="menuitem" default="" disable="separator" label="MOD_LOGOUT_REDIRECTION_URL" description="PARAMLOGOUTREDIRECTURL" state="1" />
+		
+	<param name="usesecure" type="radio" default="0" label="ENCRYPT_LOGIN_FORM" description="SUBMIT_ENCRYPTED_LOGIN_DATA">
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </param>
+	</params>
+</install>

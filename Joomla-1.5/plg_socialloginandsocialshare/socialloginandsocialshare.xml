@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<install version="1.5" type="plugin" group="system">
+	<name>System - Social Login And Social Share</name>
+	<license>GNU/GPL</license>
+	<author>LoginRadius</author>
+	<authorEmail>developers@loginradius.com</authorEmail>
+	<authorUrl>http://www.loginradius.com</authorUrl>
+	<creationDate>2012-01-01</creationDate>
+	<copyright>2012 to till</copyright>
+	<version>3.0</version>
+	<description>LoginRadius enables social login and social share for your joomla websites.</description>
+	<files>
+		<file plugin="sociallogin">socialloginandsocialshare.php</file>
+		<file>LoginRadius.php</file>
+		<file>socialloginandsocialshare_helper.php</file>
+	</files>
+</install>
