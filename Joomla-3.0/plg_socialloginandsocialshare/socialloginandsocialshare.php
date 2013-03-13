@@ -447,7 +447,7 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
 	   $emailBody = JText::sprintf('COM_SOCIALLOGIN_EMAIL_REGISTERED_WITH_ADMIN_ACTIVATION_BODY', $data['name'], $data['sitename'],	$data['siteurl'].'index.php?option=com_users&task=registration.activate&token='.$data['activation'], $data['siteurl'], $data['username'], $data['password_clear']);
 	 }
 	 else if ($usermessgae == 2) {
-	   $emailBody = JText::sprintf('COM_SOCIALLOGIN_SEND_MSG', $data['name'], $data['sitename'], $data['siteurl'].'index.php', $data['siteurl'], $data['username'],	$data['password_clear']);
+	   $emailBody = JText::sprintf('COM_SOCIALLOGIN_SEND_MSG', $data['name'], $data['sitename'], $data['siteurl'].'index.php', $data['username'],$data['password_clear']);
 	 }
 	 else if ($usermessgae == 3) {
 	   $emailBody = JText::sprintf('COM_USERS_EMAIL_REGISTERED_WITH_ACTIVATION_BODY', $data['name'], $data['sitename'], $data['siteurl'].'index.php?option=com_users&task=registration.activate&token='.$data['activation'], $data['siteurl'], $data['username'], $data['password_clear']);
