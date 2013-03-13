@@ -137,6 +137,7 @@ class plgSystemSocialLoginTools {
   public static function check_exist_comk2($user_id, $username, $profile_Image, $userImage, $lrdata) {
 $db = JFactory::getDBO();
 $username = self::remove_unescapedChar($lrdata['FullName']);
+$lr_settings = self::sociallogin_getsettings ();
 /*$last_name = self::remove_unescapedChar($lrdata['lname']);*/
 $cbsavepath = JPATH_ROOT.DS.'images'.DS.'comprofiler'.DS;
 self::insert_user_picture($cbsavepath, $profile_Image, $userImage);

@@ -106,6 +106,7 @@ class plgSystemSocialLoginTools {
    public static function check_exist_comk2($user_id, $username, $profile_Image, $userImage, $lrdata) {
    	  $db = JFactory::getDBO();
 	  $username = self::remove_unescapedChar($lrdata['FullName']);
+	  $lr_settings = self::sociallogin_getsettings ();
 	  $savepath = JPATH_ROOT.DS.'media'.DS.'k2'.DS.'users'.DS;
 	  self::insert_user_picture($savepath, $profile_Image, $userImage);
 	  if($lrdata['gender']== 'M'){ $gender='m'; } else { $gender='f'; }
