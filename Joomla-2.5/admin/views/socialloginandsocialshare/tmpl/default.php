@@ -110,6 +110,34 @@ var choosecounterpos= <?php echo $this->settings['choosecounter']; ?>;
     <td><div id="ajaxDiv" style="font-weight:bold;"></div></td>
   </tr>
 </table>
+
+<!-- Interface customization options -->
+<table class="form-table sociallogin_table">
+  <tr>
+    <th class="head" colspan="2"><?php echo JText::_('COM_SOCIALLOGIN_INTERFACE_CUSTOMIZATION'); ?></small></th>
+  </tr>
+  <tr>
+    <td colspan="2" ><span class="subhead"> <?php echo JText::_('COM_SOCIALLOGIN_ICON_SIZE'); ?></span>
+      <br /><br />
+    <input name="settings[iconSize]" type="radio" <?php echo isset($this->settings['iconSize']) && $this->settings['iconSize'] == 'medium' ? 'checked' : '';?> value="medium"  /> <?php echo JText::_('COM_SOCIALLOGIN_MEDIUM'); ?>&nbsp;&nbsp;&nbsp;
+    <input name="settings[iconSize]" type="radio" <?php echo !isset($this->settings['iconSize']) || $this->settings['iconSize'] == 'small' ? 'checked' : '';?> value="small"  /> <?php echo JText::_('COM_SOCIALLOGIN_SMALL'); ?>
+    </td>
+  </tr>
+  <tr class="row_white">
+    <td colspan="2" ><span class="subhead"><?php echo JText::_('COM_SOCIALLOGIN_ICONS_PER_ROW'); ?></span>
+      <br /><br />
+      <input name="settings[iconsPerRow]" type="text" value="<?php echo isset($this->settings['iconsPerRow']) ? trim($this->settings['iconsPerRow']) : '' ; ?>" />
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" ><span class="subhead"><?php echo JText::_('COM_SOCIALLOGIN_INTERFACE_BACKGROUND'); ?> <a style="text-decoration:none" href="javascript:void(0)" title="<?php echo JText::_('COM_SOCIALLOGIN_INTERFACE_BACKGROUND_HElP'); ?>">(?)</a></span>
+      <br /><br />
+      <input name="settings[interfaceBackground]" type="text" value="<?php echo isset($this->settings['interfaceBackground']) ? trim($this->settings['interfaceBackground']) : '' ; ?>" />
+    </td>
+  </tr>
+</table>
+<!-- Interface customization options -->
+
 <table class="form-table sociallogin_table">
   <tr>
     <th class="head" colspan="2"><?php echo JText::_('COM_SOCIALLOGIN_SETTING_BASIC'); ?></small></th>

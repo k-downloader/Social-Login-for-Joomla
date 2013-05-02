@@ -42,11 +42,10 @@ if (isset($_GET['apikey'])){
             curl_setopt($curl_handle,CURLOPT_HEADER, 1);
             $url = curl_getinfo($curl_handle,CURLINFO_EFFECTIVE_URL);
             curl_close($curl_handle);
-            $ch = curl_init();
+            $curl_handle = curl_init();
             $url = str_replace('?','/?',$url);
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl_handle, CURLOPT_URL, $url);
+            curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
          }
 		 $JsonResponse = curl_exec($curl_handle);
 		 $httpCode = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);

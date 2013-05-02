@@ -16,7 +16,7 @@ else
 }
 $loc = (isset($_SERVER['REQUEST_URI']) ? urlencode($http.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']) : urlencode($http.$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'])); 
 ?>
-<script src="//hub.loginradius.com/include/js/LoginRadius.js" ></script> <script type="text/javascript"> var options={}; options.login=true; LoginRadius_SocialLogin.util.ready(function () { $ui = LoginRadius_SocialLogin.lr_login_settings;$ui.interfacesize = "small";$ui.apikey = "<?php echo $lr_settings['apikey'] ?>";$ui.callback="<?php echo $loc; ?>"; $ui.lrinterfacecontainer ="interfacecontainerdiv"; LoginRadius_SocialLogin.init(options); }); </script>
+<script src="//hub.loginradius.com/include/js/LoginRadius.js" ></script> <script type="text/javascript"> var options={}; options.login=true; LoginRadius_SocialLogin.util.ready(function () { $ui = LoginRadius_SocialLogin.lr_login_settings; $ui.interfacesize = "<?php if(isset($lr_settings['iconSize'])){ echo trim($lr_settings['iconSize']); }?>"; <?php if(isset($lr_settings['iconsPerRow']) && trim($lr_settings['iconsPerRow']) != ""){ echo '$ui.noofcolumns = '.trim($lr_settings['iconsPerRow']).';'; } ?> $ui.lrinterfacebackground = "<?php if(isset($lr_settings['interfaceBackground'])){ echo trim($lr_settings['interfaceBackground']); } ?>"; $ui.apikey = "<?php echo $lr_settings['apikey'] ?>";$ui.callback="<?php echo $loc; ?>"; $ui.lrinterfacecontainer ="interfacecontainerdiv"; LoginRadius_SocialLogin.init(options); }); </script>
 
 
 <?php if($type == 'logout') : ?>

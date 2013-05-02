@@ -182,18 +182,20 @@ class plgSystemSocialLoginTools {
         	$url = $uri->toString(array('path', 'query', 'fragment'));
 		}
 		else{
-			$fullurl=$_SERVER['HTTP_REFERER'];
+			$fullurl = urldecode($_SERVER['HTTP_REFERER']);
 			if(strpos($fullurl,"callback=")>0){
-			$urldata=explode("callback=",$fullurl);
-			$amppos= strpos($urldata[1],"&");
-			$endlimit=strlen($urldata[1]);
-			if($amppos>0){
-			$url = 'index.php?'.$_SERVER['QUERY_STRING'].substr($urldata[1],$amppos,$endlimit);
+				$urldata = explode("callback=",$fullurl);
+				$amppos = strpos($urldata[1],"&");
+				$endlimit = strlen($urldata[1]);
+				if($amppos>0){
+					if(strpos($_SERVER['QUERY_STRING'], '&') > 0){
+						$url = 'index.php?'.$_SERVER['QUERY_STRING'];
+					}else{
+						$url = 'index.php?'.$_SERVER['QUERY_STRING'].substr($urldata[1],$amppos,$endlimit);
+					}
+				}
 			}
-			}
-			
 		}
-        
       }
       return $url;
     }

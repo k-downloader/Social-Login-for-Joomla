@@ -189,6 +189,6 @@ endif; ?>
 		<?php echo JText::_ ('COM_SOCIALLOGIN_INSTALLATION_CONFIG'); ?> <a href="index.php?option=com_socialloginandsocialshare">social login <?php echo JText::_ ('COM_SOCIALLOGIN_INSTALLATION_COM'); ?></a>
 		<?php echo JText::_ ('COM_SOCIALLOGIN_INSTALLATION_FREE'); ?> <a href="https://www.loginradius.com/loginradius/contact" target="_blank"><?php echo JText::_ ('COM_SOCIALLOGIN_INSTALLATION_CONTACT'); ?></a> <?php echo JText::_ ('COM_SOCIALLOGIN_INSTALLATION_ASSIST'); ?>
 		<strong><?php echo JText::_ ('COM_SOCIALLOGIN_INSTALLATION_THANKYOU'); ?></strong>
-		</p>
+	</p>
 <?php 
  }

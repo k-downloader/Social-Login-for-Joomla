@@ -26,7 +26,7 @@ if (isset($_GET['apikey'])) {
 /**
  * Check api credential settings.
  */
-  function check_api_settings($apikey, $apisecret, $apicred) 
+  function check_api_settings($apikey, $apisecret, $apicred)
   {
     if (isset($apikey))
 	{
@@ -45,16 +45,16 @@ if (isset($_GET['apikey'])) {
             curl_setopt($curl_handle, CURLOPT_FOLLOWLOCATION, 1);
             curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
           }
-          else 
+          else
 		  {
             curl_setopt($curl_handle,CURLOPT_HEADER, 1);
             $url = curl_getinfo($curl_handle,CURLINFO_EFFECTIVE_URL);
             curl_close($curl_handle);
-            $ch = curl_init();
+            $curl_handle = curl_init();
             $url = str_replace('?','/?',$url);
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl_handle, CURLOPT_URL, $url);
+            curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, false);
          }
 		 $JsonResponse = curl_exec($curl_handle);
 		 $httpCode = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
@@ -64,8 +64,7 @@ if (isset($_GET['apikey'])) {
 			 }
 			 else
 			 {
-				if(curl_errno($curl_handle) == 28)
-				{
+				if(curl_errno($curl_handle) == 28){
 					return '<div id="Error">Uh oh, looks like something went wrong. Try again in a sec!</div>';
 				}
 			 }

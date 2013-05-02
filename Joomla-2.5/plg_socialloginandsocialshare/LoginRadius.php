@@ -7,7 +7,7 @@ class LoginRadius {
     $IsAuthenticated = false;
 	$lr_settings = plgSystemSocialLoginTools::sociallogin_getsettings ();
     if (isset($_REQUEST['token'])) {
-      $ValidateUrl = "https://hub.loginradius.com/userprofile.ashx?token=".$_REQUEST['token']."&apisecrete=".$ApiSecrete."";
+      $ValidateUrl = "https://hub.loginradius.com/userprofile/".trim($ApiSecrete)."/".$_REQUEST['token'];
       if ($lr_settings['useapi'] == 1) {
         $curl_handle = curl_init();
         curl_setopt($curl_handle, CURLOPT_URL, $ValidateUrl);
