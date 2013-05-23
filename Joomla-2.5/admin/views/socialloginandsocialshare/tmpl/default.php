@@ -6,7 +6,6 @@ JHtml::_('behavior.tooltip');
 
 jimport ('joomla.plugin.helper');
 jimport('joomla.html.pane');
-
 ?>
 <script type="text/javascript">
 window.onload=function(){
@@ -40,6 +39,23 @@ var choosecounterpos= <?php echo $this->settings['choosecounter']; ?>;
 	}
 }
 </script>
+<?php
+if(!isset($this->settings['apikey']) || $this->settings['apikey'] == "" || !isset($this->settings['apisecret']) || $this->settings['apisecret'] == ""){
+	?>
+	<div id="system-message-container">
+	<dl id="system-message">
+	<dt class="error">Error</dt>
+	<dd class="error message">
+		<ul>
+			<li><?php echo JText::_('COM_SOCIALLOGIN_APIKEY_SECRET_NOTIFICATION'); ?></li>
+		</ul>
+	</dd>
+	</dl>
+	</div>
+	<?php
+}
+?>
+
 <form action="<?php echo JRoute::_('index.php?option=com_socialloginandsocialshare&view=socialloginandsocialshare&layout=default'); ?>" method="post" name="adminForm">
 <div>
   <div style="float:left; width:70%;">
@@ -69,6 +85,20 @@ var choosecounterpos= <?php echo $this->settings['choosecounter']; ?>;
 ?>
 	<!-- Form Box -->
   <div>
+<table class="form-table sociallogin_table">
+  <tr>
+    <th class="head" colspan="2"><?php echo JText::_('COM_SOCIALLOGIN_SETTING'); ?></small></th>
+  </tr>
+  <tr >
+    <td colspan="2" ><span class="subhead"> <?php echo JText::_('COM_ENABLE_DISABLE_SOCIALLOGIN'); ?></span>
+	  <br/><br />
+      <input name="settings[enableSocialLogin]" type="radio" value="1" <?php echo !isset($this->settings['enableSocialLogin']) || $this->settings['enableSocialLogin'] == '1' ? 'checked="checked"' : ''; ?> /> <?php echo JText::_('COM_SOCIALLOGIN_YES'); ?> 
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <input name="settings[enableSocialLogin]" type="radio" value="0" <?php echo isset($this->settings['enableSocialLogin']) && $this->settings['enableSocialLogin'] == '0' ? 'checked="checked"' : ''; ?> /> <?php echo JText::_('COM_SOCIALLOGIN_NO'); ?> 
+	</td>
+  </tr>
+</table>
+
 <table class="form-table sociallogin_table">
   <tr>
     <th class="head" colspan="2"><?php echo JText::_('COM_SOCIALLOGIN_SETTING_API'); ?></small></th>
@@ -566,7 +596,7 @@ var choosecounterpos= <?php echo $this->settings['choosecounter']; ?>;
           $noenablecounter = "";
           $enablecounter = (isset($this->settings['enablecounter']) ? $this->settings['enablecounter'] : "");
           if ($enablecounter == '0') $noenablecounter = "checked='checked'";
-          else if ($enableshare == '1') $yesenablecounter = "checked='checked'";
+          else if ($enablecounter == '1') $yesenablecounter = "checked='checked'";
           else $noenablecounter = "checked='checked'";?>
       <input name="settings[enablecounter]" type="radio" <?php echo $yesenablecounter;?>value="1"  /> <?php echo JText::_('COM_SOCIALLOGIN_YES'); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       <input name="settings[enablecounter]" type="radio"  <?php echo $noenablecounter;?>value="0"  /> <?php echo JText::_('COM_SOCIALLOGIN_NO'); ?>

@@ -13,6 +13,17 @@ CREATE TABLE IF NOT EXISTS `#__LoginRadius_users` (
 	`lr_picture` varchar(255) NULL
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+INSERT IGNORE INTO `#__LoginRadius_settings` SET
+	`setting` = 'enablecounter',
+	`value` =  '1';
+
+INSERT IGNORE INTO `#__LoginRadius_settings` SET
+	`setting` = 'enableshare',
+	`value` =  '1';
+
+INSERT IGNORE INTO `#__LoginRadius_settings` SET
+	`setting` = 'enableSocialLogin',
+	`value` =  '1';
 
 INSERT IGNORE INTO `#__LoginRadius_settings` SET
 	`setting` = 'useapi',

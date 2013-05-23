@@ -7,7 +7,7 @@
 	<license>GNU/GPL v2</license>
 	<authorEmail>developers@loginradius.com</authorEmail>
 	<authorUrl>www.loginradius.com</authorUrl>
-	<version>3.1</version>
+	<version>3.2</version>
 	<description>LoginRadius enables social login and social share for your joomla websites.</description>
 	<files>
 		<filename module="mod_socialloginandsocialshare">mod_socialloginandsocialshare.php</filename>

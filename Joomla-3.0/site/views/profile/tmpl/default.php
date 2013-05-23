@@ -77,7 +77,7 @@ if (!defined('DS')) {
 	
 	    <div>
 	       <div style="float:right;">
-	         <?php if (!empty($lr_settings['apikey'])) {
+	         <?php if (!empty($lr_settings['apikey']) && (!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'] == "1")) {
              $http = "http://";
 			  if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off')&&(isset($_SERVER['HTTPS']))) {
 			  	$http = "http://";

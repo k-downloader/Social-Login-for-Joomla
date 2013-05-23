@@ -51,6 +51,7 @@ defined('_JEXEC') or die('Restricted access'); ?>
        }
 	  </style>
 	  <?php
+	  if( !isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'] == "1" ){
 if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']!='Off' && !empty($_SERVER['HTTPS']))
 {
 	$http='https://';
@@ -62,14 +63,16 @@ else
 $loc = (isset($_SERVER['REQUEST_URI']) ? urlencode($http.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']) : urlencode($http.$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']));  
 ?>
 <script src="//hub.loginradius.com/include/js/LoginRadius.js" ></script> <script type="text/javascript"> var options={}; options.login=true; LoginRadius_SocialLogin.util.ready(function () { $ui = LoginRadius_SocialLogin.lr_login_settings;$ui.interfacesize = "small";$ui.apikey = "<?php echo $lr_settings['apikey'] ?>";$ui.callback="<?php echo $loc; ?>"; $ui.lrinterfacecontainer ="interfacecontainerdiv"; LoginRadius_SocialLogin.init(options); }); </script>
-
+<?php
+}
+?>
 <fieldset id="users-profile-core" style=" width:580px;background: none repeat scroll 0 0 #F7FAFE;border: 1px solid #DDDDDD;">
 	<legend style="color: #135CAE;">
 		<?php echo JText::_('COM_SOCIALLOGIN_LINK_ACCOUNT_HEAD'); ?>
 	</legend>
 	    <div >
 	       <div style="float:right;">
-	         <?php if (!empty($lr_settings['apikey'])) {?>
+	         <?php if (!empty($lr_settings['apikey']) && (!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'] == "1")) {?>
               <br />
               <div id="interfacecontainerdiv" class="interfacecontainerdiv"> </div>
             <?php }?></div>

@@ -17,20 +17,23 @@ JHtml::_('behavior.keepalive');?>
 
 
 <?php
-if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']!='Off' && !empty($_SERVER['HTTPS']))
-{
-	$http='https://';
+if(!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'] == "1"){
+	if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS']!='Off' && !empty($_SERVER['HTTPS']))
+	{
+		$http='https://';
+	}
+	else
+	{
+		$http='http://';
+	}
+	$loc = (isset($_SERVER['REQUEST_URI']) ? urlencode($http.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']) : urlencode($http.$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'])); 
+	
+	?>
+	<script src="//hub.loginradius.com/include/js/LoginRadius.js" ></script>
+	<script type="text/javascript"> var options={}; options.login=true; LoginRadius_SocialLogin.util.ready(function () { $ui = LoginRadius_SocialLogin.lr_login_settings;$ui.interfacesize = "<?php if(isset($lr_settings['iconSize'])){ echo trim($lr_settings['iconSize']); }?>"; $ui.apikey = "<?php echo $lr_settings['apikey'] ?>"; <?php if(isset($lr_settings['iconsPerRow']) && trim($lr_settings['iconsPerRow']) != ""){ echo '$ui.noofcolumns = '.trim($lr_settings['iconsPerRow']).';'; } ?> $ui.lrinterfacebackground = "<?php if(isset($lr_settings['interfaceBackground'])){ echo trim($lr_settings['interfaceBackground']); } ?>"; $ui.callback="<?php echo $loc; ?>"; $ui.lrinterfacecontainer ="interfacecontainerdiv"; LoginRadius_SocialLogin.init(options); }); </script>
+	<?php 
 }
-else
-{
-	$http='http://';
-}
-$loc = (isset($_SERVER['REQUEST_URI']) ? urlencode($http.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']) : urlencode($http.$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING'])); 
-?>
-<script src="//hub.loginradius.com/include/js/LoginRadius.js" ></script>
-<script type="text/javascript"> var options={}; options.login=true; LoginRadius_SocialLogin.util.ready(function () { $ui = LoginRadius_SocialLogin.lr_login_settings;$ui.interfacesize = "<?php if(isset($lr_settings['iconSize'])){ echo trim($lr_settings['iconSize']); }?>"; $ui.apikey = "<?php echo $lr_settings['apikey'] ?>"; <?php if(isset($lr_settings['iconsPerRow']) && trim($lr_settings['iconsPerRow']) != ""){ echo '$ui.noofcolumns = '.trim($lr_settings['iconsPerRow']).';'; } ?> $ui.lrinterfacebackground = "<?php if(isset($lr_settings['interfaceBackground'])){ echo trim($lr_settings['interfaceBackground']); } ?>"; $ui.callback="<?php echo $loc; ?>"; $ui.lrinterfacecontainer ="interfacecontainerdiv"; LoginRadius_SocialLogin.init(options); }); </script>
-
-<?php if ($type == 'logout') : ?>
+if ($type == 'logout') : ?>
 <?php $session = JFactory::getSession();
   if ($lr_settings['showlogout'] == 1) :?>
   <form action="<?php echo JRoute::_('index.php', true, $params->get('usesecure')); ?>" method="post" id="login-form">
@@ -80,13 +83,10 @@ $loc = (isset($_SERVER['REQUEST_URI']) ? urlencode($http.$_SERVER["HTTP_HOST"].$
 <form action="<?php echo JRoute::_('index.php', true, $params->get('usesecure')); ?>" method="post" id="login-form" >
 	<?php if ($lr_settings['showicons'] == 0) {
 	        echo $params->get('pretext');
-	        if (!empty($lr_settings['apikey'])) {?>
+	        if (!empty($lr_settings['apikey']) && (!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'] == "1") ) {?>
               <br />
               <div id="interfacecontainerdiv" class="interfacecontainerdiv"> </div>
       <?php }
-	  else{
-	  echo '<div style="background-color: #FFFFE0;border:1px solid #E6DB55;padding:5px;">'.JText::_('MOD_SOCIALLOGIN_AND_SOCIALSHARE_UNPLUSH_ERROR').'</div>';
-	  }
 		  }
           if ($lr_settings['showwithicons'] == 1): ?>
             <div id='usetrad' name='usetrad'>
@@ -116,13 +116,10 @@ $loc = (isset($_SERVER['REQUEST_URI']) ? urlencode($http.$_SERVER["HTTP_HOST"].$
 	     </fieldset></div><?php endif; ?>
 	<?php if ($lr_settings['showicons'] == 1) {
 	        echo $params->get('pretext');
-	        if (!empty($lr_settings['apikey'])) {?>
+	        if (!empty($lr_settings['apikey']) && (!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'] == "1")) {?>
               <br />
               <div id="interfacecontainerdiv" class="interfacecontainerdiv"> </div>
       <?php }
-	  else{
-	  echo '<div style="background-color: #FFFFE0;border:1px solid #E6DB55;padding:5px;">'.JText::_('MOD_SOCIALLOGIN_AND_SOCIALSHARE_UNPLUSH_ERROR').'</div>';
-	  }
 		 }
          if ($lr_settings['showwithicons'] == 1): ?>
            <div id='usetrad1' name = 'usetrad1'>

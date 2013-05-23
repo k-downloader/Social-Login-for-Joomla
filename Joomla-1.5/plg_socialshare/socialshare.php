@@ -171,7 +171,11 @@ class plgContentSocialShare  extends JPlugin {
 		foreach ($this->rearrange_settings as $key=>$value) { 
 		  $sharescript .= '"' .$value .'",';
         }
-		$sharescript .=']; $u = LoginRadius.user_settings; $u.apikey= "'.$lr_settings['apikey'].'"; $i.size = '.$size.';$i.left = "'.$vershreleft.'"; $i.top = "'.$vershretop.'";$i.right = "'.$vershreright.'";$i.bottom = "'.$vershrebottom.'"; $i.show("lrsharecontainer"); }); </script>';
+		$sharescript .=']; $u = LoginRadius.user_settings; ';
+		if(isset($lr_settings['apikey']) && $lr_settings['apikey'] != ""){
+			$sharescript .= '$u.apikey = "' . $lr_settings['apikey'] . '"; ';
+		}
+		$sharescript .= '$i.size = '.$size.';$i.left = "'.$vershreleft.'"; $i.top = "'.$vershretop.'";$i.right = "'.$vershreright.'";$i.bottom = "'.$vershrebottom.'"; $i.show("lrsharecontainer"); }); </script>';
 
       }
       else {

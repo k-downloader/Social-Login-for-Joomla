@@ -67,7 +67,7 @@ JHtml::_('bootstrap.tooltip');
 	        <div class="pretext">
 		         <p><?php echo $params->get('pretext'); ?></p>
 		    </div>
-	        <?php if (!empty($lr_settings['apikey'])) {
+	        <?php if (!empty($lr_settings['apikey']) && (!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'] == "1")) {
               $http = "http://";
 			  if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') && (isset($_SERVER['HTTPS']))) {
 			  	$http = "http://";
@@ -76,9 +76,6 @@ JHtml::_('bootstrap.tooltip');
 	          $loc = (isset($_SERVER['REQUEST_URI']) ? urlencode($http.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']) : urlencode($http.$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']));?><script src="//hub.loginradius.com/include/js/LoginRadius.js" ></script> <script type="text/javascript"> var options={}; options.login=true; LoginRadius_SocialLogin.util.ready(function () { $ui = LoginRadius_SocialLogin.lr_login_settings; $ui.interfacesize = "<?php if(isset($lr_settings['iconSize'])){ echo trim($lr_settings['iconSize']); }?>"; $ui.apikey = "<?php echo $lr_settings['apikey'] ?>"; <?php if(isset($lr_settings['iconsPerRow']) && trim($lr_settings['iconsPerRow']) != ""){ echo '$ui.noofcolumns = '.trim($lr_settings['iconsPerRow']).';'; } ?> $ui.lrinterfacebackground = "<?php if(isset($lr_settings['interfaceBackground'])){ echo trim($lr_settings['interfaceBackground']); } ?>"; $ui.callback="<?php echo $loc; ?>"; $ui.lrinterfacecontainer ="interfacecontainerdiv"; LoginRadius_SocialLogin.init(options); }); </script>
 			   <div id="interfacecontainerdiv" class="interfacecontainerdiv"></div> 
       <?php }
-	  else{
-echo '<div style="background-color: #FFFFE0;border:1px solid #E6DB55;padding:5px;">'.JText::_('MOD_SOCIALLOGIN_AND_SOCIALSHARE_UNPLUSH_ERROR').'</div>';
-}
 		  }
  if ($lr_settings['showwithicons'] == 1): ?>
 	<div class="userdata">
@@ -129,7 +126,7 @@ echo '<div style="background-color: #FFFFE0;border:1px solid #E6DB55;padding:5px
 		<p><?php echo $params->get('pretext'); ?></p>
 		</div>
 	<?php endif; 
-	        if (!empty($lr_settings['apikey'])) {
+	        if (!empty($lr_settings['apikey']) && (!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'] == "1")) {
                $http = "http://";
 			  if ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off')&&(isset($_SERVER['HTTPS']))) {
 			  	$http = "http://";
@@ -138,10 +135,6 @@ echo '<div style="background-color: #FFFFE0;border:1px solid #E6DB55;padding:5px
 	          $loc = (isset($_SERVER['REQUEST_URI']) ? urlencode($http.$_SERVER["HTTP_HOST"].$_SERVER['REQUEST_URI']) : urlencode($http.$_SERVER["HTTP_HOST"].$_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']));?><script src="//hub.loginradius.com/include/js/LoginRadius.js" ></script> <script type="text/javascript"> var options={}; options.login=true; LoginRadius_SocialLogin.util.ready(function () { $ui = LoginRadius_SocialLogin.lr_login_settings; $ui.interfacesize = "<?php if(isset($lr_settings['iconSize'])){ echo trim($lr_settings['iconSize']); }?>"; $ui.apikey = "<?php echo $lr_settings['apikey'] ?>"; <?php if(isset($lr_settings['iconsPerRow']) && trim($lr_settings['iconsPerRow']) != ""){ echo '$ui.noofcolumns = '.trim($lr_settings['iconsPerRow']).';'; } ?> $ui.lrinterfacebackground = "<?php if(isset($lr_settings['interfaceBackground'])){ echo trim($lr_settings['interfaceBackground']); } ?>"; $ui.callback="<?php echo $loc; ?>"; $ui.lrinterfacecontainer ="interfacecontainerdiv"; LoginRadius_SocialLogin.init(options); }); </script> 
 			   <div id="interfacecontainerdiv" class="interfacecontainerdiv"></div> 
       <?php }
-	  else{
-echo '<div style="background-color: #FFFFE0;border:1px solid #E6DB55;padding:5px;">'.JText::_('MOD_SOCIALLOGIN_AND_SOCIALSHARE_UNPLUSH_ERROR').'</div>';
-}
-
 		 }
 	 if ($params->get('posttext')): ?>
 		<div class="posttext">

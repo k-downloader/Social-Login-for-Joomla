@@ -15,7 +15,6 @@ class SocialLoginAndSocialShareModelSocialLoginAndSocialShare extends JModelList
 	{
 		//Get database handle
 		$db = $this->getDbo ();
-		$api_settings = array();
         $mainframe = JFactory::getApplication();
 		//Read Settings
 		$rearrange_settings = JRequest::getVar ('rearrange_settings');
@@ -31,32 +30,15 @@ class SocialLoginAndSocialShareModelSocialLoginAndSocialShare extends JModelList
 		$settings['s_articles'] = (sizeof($s_articles) > 0 ? serialize($s_articles) : "");
 		$settings['c_articles'] = (sizeof($c_articles) > 0 ? serialize($c_articles) : "");
 		$settings['rearrange_settings'] = (sizeof($rearrange_settings) > 0 ? serialize($rearrange_settings) : "");
-		$api_settings = $this->check_api_settings($apikey, $apisecret, $apicred);
-		if (! $this->isValidApiSettings($apikey)) {
-		  JError::raiseWarning ('', JText::_ ('COM_SOCIALLOGIN_APIKEY_ERROR'));
-		  $mainframe->redirect (JRoute::_ ('index.php?option=com_socialloginandsocialshare&view=socialloginandsocialshare&layout=default', false));
-		}
-		else if (! $this->isValidApiSettings($apisecret)) {
-		  JError::raiseWarning ('', JText::_ ('COM_SOCIALLOGIN_APISECRET_ERROR'));
-		  $mainframe->redirect (JRoute::_ ('index.php?option=com_socialloginandsocialshare&view=socialloginandsocialshare&layout=default', false));
-		}
-		else {
-		  $sql = "DELETE FROM #__LoginRadius_settings";
-		  $db->setQuery ($sql);
-		  $db->execute();
-          // Inserting iframe settings.
-		  //$settings['ishttps'] = (!empty($api_settings->IsHttps) ? $api_settings->IsHttps : "");
-          //$settings['ifheight'] = (!empty($api_settings->height) ? $api_settings->height : 50);
-          //$settings['ifwidth'] = (!empty($api_settings->width) ? $api_settings->width : 169);
-		  
-          //Insert new settings
-		  foreach ($settings as $k => $v)
-		  {
-		     
+		$sql = "DELETE FROM #__LoginRadius_settings";
+		$db->setQuery ($sql);
+		$db->execute();
+		//Insert new settings
+		foreach ($settings as $k => $v)
+		{
 			$sql = "INSERT INTO #__LoginRadius_settings ( setting, value )" . " VALUES ( " . $db->Quote ($k) . ", " . $db->Quote ($v) . " )";
 			$db->setQuery ($sql);
 			$db->execute();
-		  }
 		}
 	 }
 

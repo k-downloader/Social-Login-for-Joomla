@@ -68,6 +68,22 @@ var choosecounterpos= <?php echo $this->settings['choosecounter']; ?>;
 	}
 }
 </script>
+<?php
+if(!isset($this->settings['apikey']) || $this->settings['apikey'] == "" || !isset($this->settings['apisecret']) || $this->settings['apisecret'] == ""){
+	?>
+	<div id="system-message-container">
+	<dl id="system-message">
+	<dt class="error">Error</dt>
+	<dd class="error message">
+		<ul>
+			<li><?php echo JText::_('COM_SOCIALLOGIN_APIKEY_SECRET_NOTIFICATION'); ?></li>
+		</ul>
+	</dd>
+	</dl>
+	</div>
+	<?php
+}
+?>
 <form action="<?php echo JRoute::_('index.php?option=com_socialloginandsocialshare&view=socialloginandsocialshare&layout=default'); ?>" method="post" name="adminForm">
 
 <div>
@@ -107,6 +123,20 @@ var choosecounterpos= <?php echo $this->settings['choosecounter']; ?>;
 	</dl>
 	<div class="current">
   <dd><div style="display:block;" id="first">
+  <table class="form-table sociallogin_table">
+  <tr>
+    <th class="head" colspan="2"><?php echo JText::_('COM_SOCIALLOGIN_SETTING'); ?></small></th>
+  </tr>
+  <tr >
+    <td colspan="2" ><span class="subhead"> <?php echo JText::_('COM_ENABLE_DISABLE_SOCIALLOGIN'); ?></span>
+	  <br/><br />
+      <input name="settings[enableSocialLogin]" type="radio" value="1" <?php echo !isset($this->settings['enableSocialLogin']) || $this->settings['enableSocialLogin'] == '1' ? 'checked="checked"' : ''; ?> /> <?php echo JText::_('COM_SOCIALLOGIN_YES'); ?> 
+	 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     <input name="settings[enableSocialLogin]" type="radio" value="0" <?php echo isset($this->settings['enableSocialLogin']) && $this->settings['enableSocialLogin'] == '0' ? 'checked="checked"' : ''; ?> /> <?php echo JText::_('COM_SOCIALLOGIN_NO'); ?> 
+	</td>
+  </tr>
+</table>
+  
 <table class="form-table sociallogin_table">
   <tr>
     <th class="head" colspan="2"><?php echo JText::_('COM_SOCIALLOGIN_SETTING_API'); ?></small></th>
