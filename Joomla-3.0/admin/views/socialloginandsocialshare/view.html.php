@@ -16,10 +16,12 @@ class SocialLoginAndSocialShareViewSocialLoginAndSocialShare extends JViewLegacy
 	{
 		$document = JFactory::getDocument();
 		$document->addStyleSheet('components/com_socialloginandsocialshare/assets/css/socialloginandsocialshare.css');
-		$document->addScript ('components/com_socialloginandsocialshare/assets/jquery.js');
+		$document->addScript ('//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js');
 		$document->addScript('components/com_socialloginandsocialshare/assets/checkapi.js');
 		$document->addScript ('http://code.jquery.com/ui/1.10.0/jquery-ui.js');
-		$document->addScriptDeclaration('$(function(){$("#sortable").sortable({revert: true});});');
+		$document->addScript ('//share.loginradius.com/Content/js/LoginRadius.js');
+		$document->addScriptDeclaration('$(function(){$("#horsortable").sortable({revert: true});});');
+		$document->addScriptDeclaration('$(function(){$("#versortable").sortable({revert: true});});');
 		$model = $this->getModel();
 		$this->settings = $model->getSettings();
      	$this->form = $this->get('Form');

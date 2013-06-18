@@ -1,40 +1,27 @@
-.lrshare_iconsprite32{
-  cursor: pointer !important;
-  height: 32px;
-  margin: 4px !important;
-  width: 32px;
-  padding: 0px !important;
-  border: none !important;
-  background: url("../img/lrshare_iconsprite321.png") no-repeat scroll left top transparent;
-  list-style-type: none !important;
+.loginRadiusProviders input{
+	margin:0
 }
-#sortable li{
+.loginRadiusProviders{
+	width: 135px;
+	float: left;
+}
+.loginRadiusCounterProviders {
+	width: 162px;
+	float: left;
+}
+.socialTitle{
+	width: 225px !important;
+	clear: none !important;
+	margin: 5px !important;
+	display:inline !important;
+}
+#horsortable li{
   float:left !important;
  }
-.lrshare_iconsprite32.lrshare_delicious { background-position: 0px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_digg { background-position: -34px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_dotnetkicks { background-position: -68px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_email { background-position: -102px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_evenmore32 { background-position: -138px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_facebook { background-position: -174px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_google { background-position: -208px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_googleplus { background-position: -242px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_hyves { background-position: -276px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_linkedin { background-position: -310px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_live { background-position: -344px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_myspace { background-position: -378px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_pinterest { background-position: -412px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_print { background-position: -446px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_reddit { background-position: -480px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_sharingcounter32 { background-position: -514px 0px; width: 50px; height: 32px; padding-top:4px !important; font-size:18px; }
-.lrshare_iconsprite32.lrshare_tumblr { background-position: -576px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_twitter { background-position: -610px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_viadeo { background-position: -644px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_vkontakte { background-position: -678px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_wordpress { background-position: -712px 0px; width: 32px; height: 32px; }
-.lrshare_iconsprite32.lrshare_yahoo { background-position: -746px 0px; width: 32px; height: 32px; }
-
-div.current input, div.current textarea, div.current select {
+#versortable li{
+  float:left !important;
+ }
+ div.current input, div.current textarea, div.current select {
   float: none !important;
 }
 dt.open h3 {
@@ -233,49 +220,4 @@ div.current {
 .sociallogin_table th, .sociallogin_table label {
     font-weight: normal;
     text-shadow: 0 1px 0 #FFFFFF;
-}
-.twitter_box {
-	width: 58px; height: 34px;
-	position: relative;
-	background: #fff;
-	border: 1px solid #bbb;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	-ms-border-radius: 3px;
-	-o-border-radius: 3px;
-	border-radius: 3px;
-	margin-bottom: 4px;
-	margin-left: 65px;
-}
-.twitter_box:after, .twitter_box:before{
-	width: 0; height: 0;
-	position: absolute;
-	top: 100%;
-	border: solid transparent;
-	pointer-events: none;
-	content: " ";
-}
-.twitter_box:after{
-	left: 50%;
-	border-top-color: #fff;
-	border-width: 3px;
-	margin-left: -3px;
-}
-.twitter_box:before{
-	left: 50%;
-	border-top-color: #aaa;
-	border-width: 4px;
-	margin-left: -4px;
-}
-.twitter_box #followers{
-	width: 100%; height: auto;
-	position: absolute;
-	top: 0px; left: 0px;
-	font-family: "Helvetica Neue", helvetica, arial, sans-serif;
-	font-size: 16px; line-height: 34px;
-	letter-spacing: 0;
-	white-space: nowrap;
-	color: #333;
-	text-align: center;
-	-webkit-font-smoothing: subpixel-antialiased;
 }

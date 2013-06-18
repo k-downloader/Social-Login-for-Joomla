@@ -7,9 +7,10 @@
 	<authorUrl>http://www.loginradius.com</authorUrl>
 	<creationDate>2012-01-01</creationDate>
 	<copyright>2013, LoginRadius</copyright>
-	<version>3.2</version>
+	<version>3.5</version>
 	<description></description>
-
+	<installfile>install/install.php</installfile>
+	<uninstallfile>install/uninstall.php</uninstallfile>
 	<!-- Installation -->	
 	
 	<install>
@@ -17,15 +18,14 @@
 			<file driver="mysql" charset="utf8">install/install.mysql.utf8.sql</file>
 		</sql>
 	</install>
-	<installfile>install/install.php</installfile>
 	<uninstall>
 		<sql>
 			<file driver="mysql" charset="utf8">install/uninstall.mysql.utf8.sql</file>
 		</sql>
 	</uninstall>
-	<uninstallfile>install/uninstall.php</uninstallfile>
-	
-		
+	<updateservers>
+		<server type="extension" priority="1" name="Social Login and Social Share Updates">http://update.loginradius.com/joomla/update.xml</server>
+	</updateservers>
 	<!-- Component -->
 	<files folder="site">				
 		<filename>index.html</filename>
@@ -162,7 +162,8 @@
 		<plugin plugin="socialshare" title="Content - Social Share" order="-100" group="content">
 			<files folder="plg_socialshare">
 				<file plugin="socialshare">socialshare.php</file>
-		        <file>socialshare.xml</file>				
+		        <file>socialshare.xml</file>
+				<file>socialshare.js</file>				
 			</files>
 		</plugin>
 	</plugins>

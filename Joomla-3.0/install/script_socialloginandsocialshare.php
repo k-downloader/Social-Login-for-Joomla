@@ -5,12 +5,16 @@ jimport('joomla.installer.installer');
  * Script file of socialloginandsocialshare component
  */
 class Com_SocialLoginAndSocialShareInstallerScript {
-
-  public function postflight($type, $parent) {
+    public function postflight($type, $parent) {		
     if (!defined('DS')){
       define('DS',DIRECTORY_SEPARATOR);
     }
-    $status = new stdClass;
+  }
+  	function install($parent){
+		if (!defined('DS')){
+      define('DS',DIRECTORY_SEPARATOR);
+    }
+	  	$status = new stdClass;
     $status->modules = array();
     $status->plugins = array();
     $db = JFactory::getDBO ();
@@ -81,13 +85,138 @@ class Com_SocialLoginAndSocialShareInstallerScript {
       $status->plugins[] = array('name'=>$plg_data ['plugin'], 'group'=>$plg_data ['group']);      
     }
     $this->installationResults($status);
-  }
-    public function update($type)
+	  }
+  	public function uninstall($parent)
+    {$db = JFactory::getDBO();
+        $status = new stdClass;
+        $status->modules = array();
+        $status->plugins = array();
+        $manifest = $parent->getParent()->manifest;
+        $plugins = $manifest->xpath('plugins/plugin');
+        foreach ($plugins as $plugin)
+        {
+            $name = (string)$plugin->attributes()->plugin;
+            $group = (string)$plugin->attributes()->group;
+            $query = "SELECT `extension_id` FROM #__extensions WHERE `type`='plugin' AND element = ".$db->Quote($name)." AND folder = ".$db->Quote($group);
+            $db->setQuery($query);
+            $extensions = $db->loadColumn();
+            if (count($extensions))
+            {
+                foreach ($extensions as $id)
+                {
+                    $installer = new JInstaller;
+                    $result = $installer->uninstall('plugin', $id);
+                }
+                $status->plugins[] = array('name' => $name, 'group' => $group, 'result' => $result);
+            }
+            
+        }
+        $modules = $manifest->xpath('modules/module');
+        foreach ($modules as $module)
+        {
+            $name = (string)$module->attributes()->module;
+            $client = (string)$module->attributes()->client;
+            $db = JFactory::getDBO();
+            $query = "SELECT `extension_id` FROM `#__extensions` WHERE `type`='module' AND element = ".$db->Quote($name)."";
+            $db->setQuery($query);
+            $extensions = $db->loadColumn();
+            if (count($extensions))
+            {
+                foreach ($extensions as $id)
+                {
+                    $installer = new JInstaller;
+                    $result = $installer->uninstall('module', $id);
+                }
+                $status->modules[] = array('name' => $name, 'client' => $client, 'result' => $result);
+            }
+            
+        }
+		//$this->uninstallationResults($status);
+	  }  
+    public function update($parent)
     {
-        $db = JFactory::getDBO();
-		
+		if (!defined('DS')){
+      define('DS',DIRECTORY_SEPARATOR);
+    }
+	  	$status = new stdClass;
+    $status->modules = array();
+    $status->plugins = array();
+    $db = JFactory::getDBO ();
+	$src = $parent->getParent()->getPath('source');
+    $manifest = $parent->getParent()->manifest;
+	$isUpdate = JFile::exists(JPATH_SITE.DS.'modules'.DS.'mod_socialloginandsocialshare'.DS.'mod_socialloginandsocialshare.php');
+    // create a folder inside your images folder
+    JFolder::create(JPATH_ROOT.DS.'images'.DS.'sociallogin');
+
+    // Load sociallogin language file
+    $lang = JFactory::getLanguage();
+    $lang->load('com_socialloginandsocialshare', JPATH_SITE);
+	
+	// Installing modules.
+	$modules = $manifest->xpath('modules/module');
+	foreach ($modules AS $module) {
+      $mod_data = array ();
+      foreach ($module->attributes () as $key => $value) {
+        $mod_data [$key] = strval ($value);
+      }
+	  $mod_data ['client'] = JApplicationHelper::getClientInfo ($mod_data ['client'], true);
+      if (is_null($mod_data ['client']->name)) $client = 'site';
+      $path = $src.DS.$mod_data ['module'];
+      $installer = new JInstaller;
+      $result = $installer->update($path);
+      if ($result) {
+        $status->modules[] = array('name'=>$mod_data ['module'],'client'=>$mod_data ['client']->name, 'result'=>$result);
+      }
 	}
-  private function installationResults($status)
+	if (!$isUpdate) {
+	  $query = "UPDATE #__modules SET title = '".$mod_data ['title']."', position='".$mod_data ['position']."', ordering='".$mod_data ['order']."', published = 1, access=1 WHERE module='".$mod_data ['module']."'";
+      $db->setQuery($query);
+      $db->execute();
+    }
+	$query = 'SELECT `id` FROM `#__modules` WHERE module = ' . $db->Quote ($mod_data ['module']);
+    $db->setQuery ($query);
+    if (!$db->execute()) {
+      $parent->getParent()->abort (JText::_ ('Module') . ' ' . JText::_ ('Install') . ': ' . $db->stderr (true));
+      return false;
+    }
+    $mod_id = $db->loadResult ();
+    if ((int) $mod_data ['client']->id == 0) {
+      $query = 'REPLACE INTO `#__modules_menu` (moduleid,menuid) values (' . $db->Quote ($mod_id) . ',0)';
+      $db->setQuery ($query);
+      if (!$db->execute()) {
+        // Install failed, roll back changes
+        $parent->getParent()->abort (JText::_ ('Module') . ' ' . JText::_ ('Install') . ': ' . $db->stderr (true));
+        return false;
+      }
+	}
+  
+    // Installing plugins.
+	$plugins = $manifest->xpath('plugins/plugin');
+    foreach ($plugins AS $plugin) {
+      $plg_data = array ();
+      foreach ($plugin->attributes() as $key => $value) {
+        $plg_data [$key] = strval ($value);
+      }
+	  $path = $src . DS . 'plg_'.$plg_data['plugin'];
+	  $installer = new JInstaller;
+      $result = $installer->update($path);
+	  if ($result) {
+	    $query = "UPDATE #__extensions SET enabled=1 WHERE type='plugin' AND element=".$db->Quote($plg_data ['plugin'])." AND folder=".$db->Quote($plg_data ['group']);
+        $db->setQuery($query);
+        $db->execute();
+	  }      
+      // Plugin Installed
+      $status->plugins[] = array('name'=>$plg_data ['plugin'], 'group'=>$plg_data ['group']);
+	  $query = "SELECT `extension_id` FROM `#__extensions` WHERE type='plugin' AND element=".$db->Quote($plg_data ['plugin'])." AND folder=".$db->Quote($plg_data ['group']);
+	  $db->setQuery ($query);
+		if (!$db->execute()) {
+		  $parent->getParent()->abort (JText::_ ('Plugin') . ' ' . JText::_ ('Update') . ': ' . $db->stderr (true));
+		  return false;
+		}
+    }
+		$this->installationResults($status);
+	}
+	private function installationResults($status)
     {
         $rows = 0; 
         if (count($status->modules) AND count($status->plugins)) {?>

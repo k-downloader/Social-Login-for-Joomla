@@ -1,19 +1,19 @@
 <?php 
-if (isset($_GET['apikey'])) {
-  $apikey = trim($_GET['apikey']);
-  $apisecret = trim($_GET['apisecret']);
-  $apicred = $_GET['api_request'];
-  if (!isValidApiSettings($apikey)) 
-  {
-    echo '<div id="Error">Please enter a valid API Key.</div>';
+if (isset($_POST['apikey'])){
+  $apikey = trim($_POST['apikey']);
+  $apisecret = trim($_POST['apisecret']);
+  $apicred = $_POST['api_request'];
+  if (!isValidApiSettings($apikey)) {
+    die('<div id="Error">Please enter a valid API Key.</div>');
   }
-  elseif(!isValidApiSettings($apisecret)) 
-  {
-    echo '<div id="Error">Please enter a valid API Secret.</div>';
+  elseif(!isValidApiSettings($apisecret)) {
+    die('<div id="Error">Please enter a valid API Secret.</div>');
   }
-  elseif (check_api_settings($apikey, $apisecret, $apicred)) 
-  {
-    echo check_api_settings($apikey, $apisecret, $apicred);
+  elseif($apisecret == $apikey) {
+	die('<div id="Error">Please enter API Key and Secret from your LoginRadius account in the corressponding fields here.</div>');
+	}
+  elseif (check_api_settings($apikey, $apisecret, $apicred)) {
+    die(check_api_settings($apikey, $apisecret, $apicred));
   }
 }
 /**

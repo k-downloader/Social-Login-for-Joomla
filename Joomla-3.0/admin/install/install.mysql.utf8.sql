@@ -1,3 +1,4 @@
+
 CREATE TABLE IF NOT EXISTS `#__LoginRadius_settings` (
 	`id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
 	`setting` varchar(255) NOT NULL,

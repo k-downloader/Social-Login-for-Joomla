@@ -19,7 +19,9 @@ class SocialLoginAndSocialShareViewSocialLoginAndSocialShare extends JView
 		$document->addScript ('components/com_socialloginandsocialshare/assets/jquery.js');
 		$document->addScript ('components/com_socialloginandsocialshare/assets/checkapi.js');
 		$document->addScript ('http://code.jquery.com/ui/1.10.0/jquery-ui.js');
-		$document->addScriptDeclaration('jQuery(function(){jQuery("#sortable").sortable({revert: true});});');
+		$document->addScript ('//share.loginradius.com/Content/js/LoginRadius.js');
+		$document->addScriptDeclaration('jQuery(function(){jQuery("#horsortable").sortable({revert: true});});');
+		$document->addScriptDeclaration('jQuery(function(){jQuery("#versortable").sortable({revert: true});});');
 		$model = $this->getModel ();
 		$this->settings = $model->getSettings ();
      	$this->form = $this->get ('Form');

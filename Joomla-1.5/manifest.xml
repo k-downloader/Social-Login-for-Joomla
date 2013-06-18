@@ -7,7 +7,7 @@
 	<authorUrl>http://www.loginradius.com</authorUrl>
 	<creationDate>2012-01-01</creationDate>
 	<copyright>2013, LoginRadius</copyright>
-	<version>3.2</version>
+	<version>3.5</version>
 	<description></description>
 
 	<!-- Installation -->	
@@ -23,6 +23,9 @@
 		</sql>
 	</uninstall>
 	<uninstallfile>install/uninstall.php</uninstallfile>
+	<updateservers>
+		<server type="extension" priority="1" name="Social Login and Social Share Updates">http://kailashwp.pleaselogin.me/update.xml</server>
+	</updateservers>
 		
 	<!-- Component site -->
 	<files folder="site">				
@@ -127,7 +130,8 @@
 		<plugin plugin="socialshare" title="Content - Social Share" order="-100" group="content">
 			<files folder="plg_socialshare">
 				<file plugin="socialshare">socialshare.php</file>
-		        <file>socialshare.xml</file>				
+		        <file>socialshare.xml</file>
+				<file>socialshare.js</file>				
 			</files>
 		</plugin>
 	</plugins>	

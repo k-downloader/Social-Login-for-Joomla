@@ -18,32 +18,34 @@ class SocialLoginAndSocialShareModelSocialLoginAndSocialShare extends JModel
 		$db = $this->getDbo ();
         $mainframe = JFactory::getApplication();
 		//Read Settings
-		$rearrange_settings = JRequest::getVar ('rearrange_settings');
+		$horizontal_rearrange = JRequest::getVar ('horizontal_rearrange');
+		$vertical_rearrange = JRequest::getVar ('vertical_rearrange');
+		$horizontalcounter = JRequest::getVar ('horizontalcounter');
+		$verticalcounter = JRequest::getVar ('verticalcounter');
 		$settings = JRequest::getVar ('settings');
-		$s_articles = JRequest::getVar ('s_articles');
-		$c_articles = JRequest::getVar ('c_articles');
+		$h_articles = JRequest::getVar ('h_articles');
+		$v_articles = JRequest::getVar ('v_articles');
+        //print_r($settings);
 		$settings['apikey'] = trim($settings['apikey']);
 		$settings['apisecret'] = trim($settings['apisecret']);
-        //print_r($settings);
-		$apikey = trim($settings['apikey']);
-		$apisecret = trim($settings['apisecret']);
 		$apicred = $settings['useapi'];
-		$settings['s_articles'] = (sizeof($s_articles) > 0 ? serialize($s_articles) : "");
-		$settings['c_articles'] = (sizeof($c_articles) > 0 ? serialize($c_articles) : "");
-		$settings['rearrange_settings'] = (sizeof($rearrange_settings) > 0 ? serialize($rearrange_settings) : "");
-		  $sql = "DELETE FROM #__LoginRadius_settings";
+		$settings['h_articles'] = (sizeof($h_articles) > 0 ? serialize($h_articles) : "");
+		$settings['v_articles'] = (sizeof($v_articles) > 0 ? serialize($v_articles) : "");
+		$settings['horizontal_rearrange'] = (sizeof($horizontal_rearrange) > 0 ? serialize($horizontal_rearrange) : "");
+		$settings['vertical_rearrange'] = (sizeof($vertical_rearrange) > 0 ? serialize($vertical_rearrange) : "");
+		$settings['horizontalcounter'] = (sizeof($horizontalcounter) > 0 ? serialize($horizontalcounter) : "");
+		$settings['verticalcounter'] = (sizeof($verticalcounter) > 0 ? serialize($verticalcounter) : "");
+	    $sql = "DELETE FROM #__LoginRadius_settings";
+	    $db->setQuery ($sql);
+	    $db->query ();
+	  
+	    //Insert new settings
+	    foreach ($settings as $k => $v){
+		  $sql = "INSERT INTO #__LoginRadius_settings ( setting, value )" . " VALUES ( " . $db->Quote ($k) . ", " . $db->Quote ($v) . " )";
 		  $db->setQuery ($sql);
 		  $db->query ();
-          
-		  //Insert new settings
-		  
-		  foreach ($settings as $k => $v)
-		  {
-			 $sql = "INSERT INTO #__LoginRadius_settings ( setting, value )" . " VALUES ( " . $db->Quote ($k) . ", " . $db->Quote ($v) . " )";
-			$db->setQuery ($sql);
-			$db->query ();
-		  }
-	}
+	    }
+	 }
 	/**
 	 * Read Settings
 	 */
@@ -51,6 +53,17 @@ class SocialLoginAndSocialShareModelSocialLoginAndSocialShare extends JModel
 	{
 		$settings = array ();
         $db = $this->getDbo ();
+		$db->setQuery("CREATE TABLE IF NOT EXISTS #__loginradius_users (`id` int(11) DEFAULT NULL, `LoginRadius_id` varchar(255) DEFAULT NULL, `provider` varchar(255) DEFAULT NULL, `lr_picture` varchar(255) DEFAULT NULL) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+		$db->query ();
+		$db->setQuery("CREATE TABLE IF NOT EXISTS #__loginradius_settings (
+						`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+						`setting` varchar(255) NOT NULL,
+						`value` varchar(1000) NOT NULL,
+						PRIMARY KEY (`id`),
+						UNIQUE KEY `setting` (`setting`)
+						) ENGINE=MyISAM  DEFAULT CHARSET=utf8;");
+		$db->query ();
+		
         $sql = "SELECT * FROM #__LoginRadius_settings";
 		$db->setQuery ($sql);
 		$rows = $db->LoadAssocList ();
@@ -66,78 +79,4 @@ class SocialLoginAndSocialShareModelSocialLoginAndSocialShare extends JModel
 
 		return $settings;
 	}
-	
-	/**
-	 * Check apikey and secret is valid.
-	 */
-	public function isValidApiSettings($apikey) {
-      return !empty($apikey) && preg_match('/^\{?[A-Z0-9]{8}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{12}\}?$/i', $apikey);
-    }
-	
-	/**
-	 * Check api credential settings.
-	 */
-	public function check_api_settings($apikey, $apisecret, $apicred){
-      if (isset($apikey)){
-        $ValidateUrl = "https://hub.loginradius.com/ping/$apikey/$apisecret";
-        if ($apicred == 1) {
-		  if (in_array ('curl', get_loaded_extensions ()) AND function_exists('curl_exec')) {
-            $curl_handle = curl_init();
-            curl_setopt($curl_handle, CURLOPT_URL, $ValidateUrl);
-			curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 5);
-			curl_setopt($curl_handle, CURLOPT_TIMEOUT, 5);
-			curl_setopt($curl_handle, CURLOPT_SSL_VERIFYPEER, false);
-            if (ini_get('open_basedir') == '' && (ini_get('safe_mode') == 'Off' or !ini_get('safe_mode'))) {
-              curl_setopt($curl_handle, CURLOPT_FOLLOWLOCATION, 1);
-              curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
-            }
-            else {
-              curl_setopt($curl_handle,CURLOPT_HEADER, 1);
-              $url = curl_getinfo($curl_handle,CURLINFO_EFFECTIVE_URL);
-              curl_close($curl_handle);
-              $curl_handle = curl_init();
-              $url = str_replace('?','/?',$url);
-              curl_setopt($curl_handle, CURLOPT_URL, $url);
-           }
-		   curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
-		   $JsonResponse = curl_exec($curl_handle);
-		   $httpCode = curl_getinfo($curl_handle, CURLINFO_HTTP_CODE);
-           if(in_array($httpCode, array(400, 401, 403, 404, 500, 503, 0)) && $httpCode != 200){
-				return JTEXT::_('COM_LOGINRADIUS_SERVICE_AND_TIMEOUT_ERROR');
-			}
-			else{
-				if(curl_errno($curl_handle) == 28){
-					return JTEXT::_('COM_LOGINRADIUS_SERVICE_AND_TIMEOUT_ERROR');
-				}
-			}
-           $UserProfile = json_decode($JsonResponse);
-		   curl_close($curl_handle);
-		   if(isset($UserProfile->ok)) { 
-			  $this->IsAuthenticated = true;
-			  return $UserProfile;
-			}
-		 }
-		 else
-		 {
-		 	return JTEXT::_('COM_LOGINRADIUS_CURL_ERROR');
-		 }
-       }
-       else {
-        $JsonResponse = @file_get_contents($ValidateUrl);
-		if(strpos(@$http_response_header[0], "400") !== false || strpos(@$http_response_header[0], "401") !== false || strpos(@$http_response_header[0], "403") !== false || strpos(@$http_response_header[0], "404") !== false || strpos(@$http_response_header[0], "500") !== false || strpos(@$http_response_header[0], "503") !== false){
-				return JTEXT::_('COM_LOGINRADIUS_SERVICE_AND_TIMEOUT_ERROR');
-		 }
-        if(empty($JsonResponse)){
-		 	return JTEXT::_('COM_LOGINRADIUS_FSOCKOPEN_ERROR');
-		 }
-		 else {
-		 	$UserProfile = json_decode($JsonResponse);
-           if(isset($UserProfile->ok)) { 
-			  $this->IsAuthenticated = true;
-			  return $UserProfile;
-			}
-		 }
-     }
-   }
-   }
- }
+}

@@ -88,7 +88,7 @@ JHtml::_('behavior.tooltip');
 			<div style="float:left; width:270px;">
 			   <div style="float:left; padding:5px;">
 			   <?php $user_picture = $session->get('user_picture');?>
-			   <img src="<?php if (!empty($user_picture)) { echo JURI::root().'images'.DS.'sociallogin'.DS. $session->get('user_picture');} else {echo JURI::root().'media' . DS . 'com_socialloginandsocialshare' . DS .'images' . DS . 'noimage.png';}?>" alt="<?php echo JFactory::getUser()->name?>" style="width:80px; height:auto;background: none repeat scroll 0 0 #FFFFFF; border: 1px solid #CCCCCC; display: block; margin: 2px 4px 4px 0; padding: 2px;">
+			   <img src="<?php if (!empty($user_picture)) { echo JURI::root().'images/sociallogin/'.$session->get('user_picture');} else {echo JURI::root().'media/com_socialloginandsocialshare/images/noimage.png';}?>" alt="<?php echo JFactory::getUser()->name?>" style="width:80px; height:auto;background: none repeat scroll 0 0 #FFFFFF; border: 1px solid #CCCCCC; display: block; margin: 2px 4px 4px 0; padding: 2px;">
 			   </div>
 			   <div style="float:right;padding:5px;font-size: 20px;margin: 5px;">
 			   <b><?php echo JFactory::getUser()->name?></b>
@@ -101,7 +101,7 @@ JHtml::_('behavior.tooltip');
 	  <div style="width:350px;">
 	  <ul class="AccountSetting-addprovider">
 	  <?php $msg = JText::_('COM_SOCIALLOGIN_LINK_ACCOUNT_MSG'); ?>
-	  <?php foreach ($acmaprows as $row) {?>
+      <?php foreach ($acmaprows as $row) {?>
 	  
 	<li>
 	<form id="member-profile" action="<?php echo JRoute::_('index.php?option=com_socialloginandsocialshare&task=profile.delmap'); ?>" method="post" class="form-validate" enctype="multipart/form-data">

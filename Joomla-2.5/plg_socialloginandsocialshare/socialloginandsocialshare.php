@@ -26,16 +26,16 @@ require_once(dirname (__FILE__) . DS . 'LoginRadius.php');
  */
 class plgSystemSocialLoginAndSocialShare extends JPlugin {
 
-/*
- * Class constructor.
- */
+  /*
+   * Class constructor.
+   */
   function plgSystemSocialLoginAndSocialShare(&$subject, $config) {
     parent::__construct($subject,$config);
   }
   
-/*
- * Plugin class function that calls on after plugin intialise.
- */
+  /*
+   * Plugin class function that calls on after plugin intialise.
+   */
   function onAfterInitialise() {
     $lrdata = array(); $user_id = ''; $id = ''; $email = ''; $msg = ''; $defaultUserGroups = ''; $lr_settings = array();
     $lr_settings = plgSystemSocialLoginTools::sociallogin_getsettings ();
@@ -55,8 +55,8 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
 	$lr_settings ['apisecret'] = (!empty($lr_settings ['apisecret']) ? $lr_settings ['apisecret'] : "");
     $userprofile = $obj->sociallogin_getapi($lr_settings ['apisecret']);	
 
-	// Checking user is logged in.
-	if ($obj->IsAuthenticated == true && JFactory::getUser()->id) {
+	  // Checking user is logged in.
+	  if ($obj->IsAuthenticated == true && JFactory::getUser()->id) {
 	  $lrdata = plgSystemSocialLoginTools::get_userprofile_data($userprofile);
 	  
 	  $providerquery = "SELECT provider from #__LoginRadius_users WHERE provider=".$db->Quote ($lrdata['Provider'])." AND id = " . JFactory::getUser()->id;
@@ -101,8 +101,8 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
       }
     }
 	
-	// User is not logged in trying to make log in user.
-	if ($obj->IsAuthenticated == true && !JFactory::getUser()->id) {
+	  // User is not logged in trying to make log in user.
+	  if ($obj->IsAuthenticated == true && !JFactory::getUser()->id) {
 	  
 	  // Remove the session if any.
 	  if ($session->get('tmpuser')) {
@@ -213,6 +213,8 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
         $redirct = JURI::base();
         $mainframe->redirect($redirct);
       }
+
+	  //enter user profile data in database
       if (isset($lrdata['id']) && !empty($lrdata['id']) && !empty($lrdata['email'])) {
 
 	    // Filter username form data.
@@ -336,7 +338,7 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
           $db->setQuery($query);
           $cbtableexists = $db->loadResult();
           if (isset($cbtableexists)) {
-		    plgSystemSocialLoginTools::make_cb_user($user, $profile_Image, $userImage, $lrdata);
+		    plgSystemSocialLoginTools::make_cb_user($user_id, $profile_Image, $userImage, $lrdata);
           }
 
 		  // check for the k2 works.
@@ -353,10 +355,7 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
           $db->setQuery($query);
           $jomtableexists = $db->loadResult();
           if (isset($jomtableexists)) {
-		    plgSystemSocialLoginTools::make_jomsocial_user($user, $profile_Image, $userImage);
-          }
-	      if (JPluginHelper::isEnabled('user', 'jfusion')) {
-            plgSystemSocialLoginTools::create_jfusion_user($user, $newuser);
+		    plgSystemSocialLoginTools::make_jomsocial_user($user_id, $profile_Image, $userImage);
           }
 
 		  // Handle account activation/confirmation emails.
@@ -381,12 +380,72 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
 		    $this->_sendMail($user, $usermessgae);
 		  }
 	    }
+		//updata user profile data on login the user
+		else if($newuser == false && $lr_settings['updateuserdata'] == 1){
+			
+          $user = new JUser();
+	      $need_verification = false;
+		  $name = plgSystemSocialLoginTools::remove_unescapedChar($name);		  
+		  $user = JUser::getInstance($user_id);
+		  $user->name = $name;
+		  //update the user
+          if (!$user->save(true)) {
+            return false;
+          }
+          $user_id = $user->get ('id');
+		 	  
+		  // Saving user extra profile.
+          // plgSystemSocialLoginTools::save_userprofile_data($user_id, $lrdata);
+          // Trying to insert image.
+          $profile_Image = $lrdata['thumbnail'];
+          if (empty($profile_Image)) {
+            $profile_Image = JURI::root().'media/com_socialloginandsocialshare/images/noimage.png';
+          }
+          $userImage = $username . $user_id . '.jpg';
+          $sociallogin_savepath = JPATH_ROOT.DS.'images/sociallogin/';
+          plgSystemSocialLoginTools::insert_user_picture($sociallogin_savepath, $profile_Image, $userImage);
+
+          // Remove.
+          $sql = "DELETE FROM #__LoginRadius_users WHERE LoginRadius_id = " . $db->Quote ($lrdata['id']);
+          $db->setQuery ($sql);
+          if ($db->query ()) {
+            //Add new id to db
+            $sql = "INSERT INTO #__LoginRadius_users SET id = " . $db->quote ($user_id) . ",  LoginRadius_id = " . $db->Quote ($lrdata['id']).", provider = " . $db->Quote ($lrdata['Provider']).", lr_picture = " . $db->Quote ($userImage);
+            $db->setQuery ($sql);
+            $db->query();
+          }
+		  
+          // check for the community builder works.
+          $query = "SHOW TABLES LIKE '%__comprofiler'";
+          $db->setQuery($query);
+          $cbtableexists = $db->loadResult();
+          if (isset($cbtableexists)) {
+		    plgSystemSocialLoginTools::make_cb_user($user_id, $profile_Image, $userImage, $lrdata);
+          }
+
+		  // check for the k2 works.
+          if (JPluginHelper::isEnabled('system', 'k2')) {
+		    plgSystemSocialLoginTools::check_exist_comk2($user_id, $username, $profile_Image, $userImage, $lrdata);
+		  }
+		   // Check for kunena profile.
+         if (JPluginHelper::isEnabled('system', 'kunena')) {
+            plgSystemSocialLoginTools::check_exist_comkunena($user_id, $username, $profile_Image, $userImage, $lrdata);
+		  }
+
+		  // check for the jom social works.
+          $query = "SHOW TABLES LIKE '%__community_users'";
+          $db->setQuery($query);
+          $jomtableexists = $db->loadResult();
+          if (isset($jomtableexists)) {
+		    plgSystemSocialLoginTools::make_jomsocial_user($user_id, $profile_Image, $userImage);
+          }
+	    
+		}
 	  } 
+	  
+	  //Login when user entered in db
 	  if ($user_id) {
 	    $user = JUser::getInstance((int)$user_id);
-        if (JPluginHelper::isEnabled('user', 'jfusion')) {
-            plgSystemSocialLoginTools::create_jfusion_user($user, $newuser);
-        }
 
 		// Register session variables
 		$session = JFactory::getSession();
@@ -411,7 +470,7 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
 
 		//Redirect after Login
 	    $redirct = plgSystemSocialLoginTools::getReturnURL();
-	    $mainframe->redirect(JURI::root().$redirct);
+	    $mainframe->redirect($redirct);
 		$session->clear('tmpuser');
 	  }
     }

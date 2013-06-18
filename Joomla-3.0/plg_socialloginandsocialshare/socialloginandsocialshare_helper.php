@@ -134,46 +134,70 @@ class plgSystemSocialLoginTools {
 /*
  * Function that checks k2 component exists.
  */
-  public static function check_exist_comk2($user_id, $username, $profile_Image, $userImage, $lrdata) {
-$db = JFactory::getDBO();
-$username = self::remove_unescapedChar($lrdata['FullName']);
-$lr_settings = self::sociallogin_getsettings ();
-/*$last_name = self::remove_unescapedChar($lrdata['lname']);*/
-$cbsavepath = JPATH_ROOT.DS.'images'.DS.'comprofiler'.DS;
-self::insert_user_picture($cbsavepath, $profile_Image, $userImage);
-if($lrdata['gender']== 'M'){ $gender='m'; } else { $gender='f'; }
-$k2query = "INSERT IGNORE INTO #__k2_users(`id`,`userID`,`userName`,`gender`,`description`,`image`,`url`,`group`,`ip`,`hostname`,`notes`) VALUES ('".$user_id."','".$user_id."','".$username."','".$gender."','".$lrdata['aboutme']."','".$userImage."','".$lrdata['website']."','".trim($lr_settings['k2group'])."','".$_SERVER['REMOTE_ADDR']."','".gethostbyaddr($_SERVER['REMOTE_ADDR'])."','')";
-$db->setQuery($k2query);
-$db->query();
+public static function check_exist_comk2($user_id, $username, $profile_Image, $userImage, $lrdata) {
+	$db = JFactory::getDBO();
+	$username = self::remove_unescapedChar($lrdata['FullName']);
+	$lr_settings = self::sociallogin_getsettings ();
+	/*$last_name = self::remove_unescapedChar($lrdata['lname']);*/
+	$cbsavepath = JPATH_ROOT.DS.'images'.DS.'comprofiler'.DS;
+	self::insert_user_picture($cbsavepath, $profile_Image, $userImage);
+	if($lrdata['gender']== 'M'){ $gender='m'; } else { $gender='f'; }
+	$query = "SELECT id FROM #__k2_users WHERE id='".$user_id."'";
+      $db->setQuery($query);
+      $update_k2_id = $db->loadResult();
+	  if(!empty($update_k2_id)){
+			$k2query = "UPDATE #__k2_users SET `gender` = '".$gender."',`description` = '".$lrdata['aboutme']."',`image` = '".$userImage."',`url` = '".$lrdata['website']."' WHERE id='".$user_id."'";
+	  }
+	 else{ 
+		$k2query = "INSERT IGNORE INTO #__k2_users(`id`,`userID`,`userName`,`gender`,`description`,`image`,`url`,`group`,`ip`,`hostname`,`notes`) VALUES ('".$user_id."','".$user_id."','".$username."','".$gender."','".$lrdata['aboutme']."','".$userImage."','".$lrdata['website']."','".trim($lr_settings['k2group'])."','".$_SERVER['REMOTE_ADDR']."','".gethostbyaddr($_SERVER['REMOTE_ADDR'])."','')";
+	 }
+		$db->setQuery($k2query);
+		$db->query();
 }
 	
 /*
  * Function that inserting data in cb table.
  */
-   public static function make_cb_user($user, $profile_Image, $userImage, $lrdata) {
-$db = JFactory::getDBO();
-$first_name = self::remove_unescapedChar($lrdata['fname']);
-$last_name = self::remove_unescapedChar($lrdata['lname']);
-$cbsavepath = JPATH_ROOT.DS.'images'.DS.'comprofiler'.DS;
-self::insert_user_picture($cbsavepath, $profile_Image, $userImage);
-$cbquery = "INSERT IGNORE INTO #__comprofiler(`id`,`user_id`,`firstname`,`lastname`,`avatar`) VALUES ('".$user->get('id')."','".$user->get('id')."','".$first_name."','".$last_name."','".$userImage."')";
-$db->setQuery($cbquery);
-$db->query();
+   public static function make_cb_user($user_id, $profile_Image, $userImage, $lrdata) {
+	$db = JFactory::getDBO();
+	$first_name = self::remove_unescapedChar($lrdata['fname']);
+	$last_name = self::remove_unescapedChar($lrdata['lname']);
+	$cbsavepath = JPATH_ROOT.DS.'images'.DS.'comprofiler'.DS;
+	self::insert_user_picture($cbsavepath, $profile_Image, $userImage);
+	  $query = "SELECT id FROM #__comprofiler WHERE id='".$user_id."'";
+      $db->setQuery($query);
+      $update_cb_id = $db->loadResult();
+	  if(!empty($update_cb_id)){
+		$cbquery = "UPDATE #__comprofiler SET `firstname` = '".$first_name."',`lastname` = '".$last_name."',`avatar` = '".$userImage."' WHERE id='".$user_id."'";
+	  }
+	  else {
+		$cbquery = "INSERT IGNORE INTO #__comprofiler (`id`,`user_id`,`firstname`,`lastname`,`avatar`) VALUES ('".$user_id."','".$user_id."','".$first_name."','".$last_name."','".$userImage."')";
+	  }
+		$db->setQuery($cbquery);
+		$db->query();
 }
 
 	
 /*
  * Function that inserting data in jom social user table.
  */
-  public static function make_jomsocial_user($user, $profile_Image, $userImage) {
-$db = JFactory::getDBO();
-// Check for jom social.
-$joomsavepath = JPATH_ROOT.DS.'images'.DS.'avatar'.DS;
-$dumpuserImage = 'images/avatar/'.$userImage;
-self::insert_user_picture($joomsavepath, $profile_Image, $userImage);
-$joomquery = "INSERT IGNORE INTO #__community_users(`userid`,`avatar`,`thumb`) VALUES('".$user->get('id')."','".$dumpuserImage."','".$dumpuserImage."')";
-$db->setQuery($joomquery);
-$db->query();
+  public static function make_jomsocial_user($user_id, $profile_Image, $userImage) {
+		$db = JFactory::getDBO();
+		// Check for jom social.
+		$joomsavepath = JPATH_ROOT.DS.'images'.DS.'avatar'.DS;
+		$dumpuserImage = 'images/avatar/'.$userImage;
+		self::insert_user_picture($joomsavepath, $profile_Image, $userImage);
+	  $query = "SELECT userid FROM #__community_users WHERE userid='".$user_id."'";
+      $db->setQuery($query);
+      $update_joom_id = $db->loadResult();
+		  if(!empty($update_joom_id)){
+			$joomquery = "UPDATE #__community_users SET `avatar` = '".$dumpuserImage."',`thumb` = '".$dumpuserImage."' WHERE userid='".$user_id."'";
+		  }
+		  else {			  
+	  		$joomquery = "INSERT IGNORE INTO #__community_users(`userid`,`avatar`,`thumb`) VALUES('".$user_id."','".$dumpuserImage."','".$dumpuserImage."')";
+        }
+			$db->setQuery($joomquery);
+			$db->query();
 }
 	
 /*
@@ -405,22 +429,29 @@ $db->query();
 /*
  * Function that make compitable with kunena.
  */
-   public static function check_exist_comkunena($user_id, $username, $profile_Image, $userImage, $lrdata) {
-$db = JFactory::getDBO();
-$userImage = 'avatar'.$userImage;
-if ($lrdata['gender'] == 'M' OR $lrdata['gender'] == 'm' OR $lrdata['gender'] == 'Male' OR $lrdata['gender'] == 'male') {
-$lrdata['gender'] = '1';
-}
-else if ($lrdata['gender'] == 'F' OR $lrdata['gender'] == 'f' OR $lrdata['gender'] == 'Female' OR $lrdata['gender'] == 'female') {
-$lrdata['gender'] = '2';
-}
-$kunenasavepath = JPATH_ROOT.DS.'media'.DS.'kunena'.DS.'avatars'.DS.'users'.DS;
-$dumpuserImage = 'users/'.$userImage;
-self::insert_user_picture($kunenasavepath, $profile_Image, $userImage);
-$kunenaquery = "UPDATE #__kunena_users SET `userid` = '".$user_id."',`avatar` = '".$dumpuserImage."',`gender` = '".$lrdata['gender']."',`birthdate` = '".$lrdata['dob']."',`location` = '".$lrdata['city']."',`personalText` = '".$lrdata['aboutme']."',`websiteurl` = '".$lrdata['website']."' WHERE `userid` = '".$user_id."'";
-
-$db->setQuery($kunenaquery);
-$db->query();
+public static function check_exist_comkunena($user_id, $username, $profile_Image, $userImage, $lrdata) {
+	$db = JFactory::getDBO();
+	$userImage = 'avatar'.$userImage;
+	if ($lrdata['gender'] == 'M' OR $lrdata['gender'] == 'm' OR $lrdata['gender'] == 'Male' OR $lrdata['gender'] == 'male') {
+	$lrdata['gender'] = '1';
+	}
+	else if ($lrdata['gender'] == 'F' OR $lrdata['gender'] == 'f' OR $lrdata['gender'] == 'Female' OR $lrdata['gender'] == 'female') {
+	$lrdata['gender'] = '2';
+	}
+	$kunenasavepath = JPATH_ROOT.DS.'media'.DS.'kunena'.DS.'avatars'.DS.'users'.DS;
+	$dumpuserImage = 'users/'.$userImage;
+	self::insert_user_picture($kunenasavepath, $profile_Image, $userImage);
+	$query = "SELECT userid FROM #__kunena_users WHERE userid='".$user_id."'";
+	$db->setQuery($query);
+	$update_kunena_id = $db->loadResult();
+	if(!empty($update_kunena_id)){
+		$kunenaquery = "UPDATE #__kunena_users SET `avatar` = '".$dumpuserImage."',`gender` = '".$lrdata['gender']."',`birthdate` = '".$lrdata['dob']."',`location` = '".$lrdata['city']."',`personalText` = '".$lrdata['aboutme']."',`websiteurl` = '".$lrdata['website']."' WHERE `userid` = '".$user_id."'";
+	}
+	else {
+		$kunenaquery = "INSERT IGNORE INTO #__kunena_users (`userid`,`avatar`,`gender`,`birthdate`,`location`,`personalText`,`websiteurl`) VALUES('".$user_id."','".$dumpuserImage."','".$lrdata['gender']."','".$lrdata['dob']."','".$lrdata['city']."','".$lrdata['aboutme']."','".$lrdata['website']."')";
+	}
+	$db->setQuery($kunenaquery);
+	$db->query();
 }
    
 /*
@@ -428,7 +459,8 @@ $db->query();
  * Function that make compitable with jfusion.
 
  */
-   public static function create_jfusion_user(&$user, $newuser) {
+/*
+public static function create_jfusion_user(&$user, $newuser) {
 include_once JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_jfusion' . DS . 'models' . DS . 'model.jfusion.php';
 include_once JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_jfusion' . DS . 'models' . DS . 'model.factory.php';
 $options = array('entry_url' => JURI::root() . 'index.php?option=com_user&task=login', 'silent' => true);
@@ -465,4 +497,5 @@ $JFusionSlave->createSession($slaveUser, $options);
 }
 }
 }
+*/
 }

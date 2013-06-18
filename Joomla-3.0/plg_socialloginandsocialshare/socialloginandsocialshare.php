@@ -342,7 +342,7 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
           $db->setQuery($query);
           $cbtableexists = $db->loadResult();
           if (isset($cbtableexists)) {
-		    plgSystemSocialLoginTools::make_cb_user($user, $profile_Image, $userImage, $lrdata);
+		    plgSystemSocialLoginTools::make_cb_user($user_id, $profile_Image, $userImage, $lrdata);
           }
 
 		  // check for the k2 works.
@@ -360,12 +360,9 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
           $db->setQuery($query);
           $jomtableexists = $db->loadResult();
           if (isset($jomtableexists)) {
-		    plgSystemSocialLoginTools::make_jomsocial_user($user, $profile_Image, $userImage);
+		    plgSystemSocialLoginTools::make_jomsocial_user($user_id, $profile_Image, $userImage);
           }
-	    if (JPluginHelper::isEnabled('user', 'jfusion')) {
-            plgSystemSocialLoginTools::create_jfusion_user($user, $newuser);
-        }
-
+	    
 		 // Handle account activation/confirmation emails.
 		 if ($useractivation == '2' OR $need_verification == true) {
            if ($need_verification == true) {
@@ -388,13 +385,73 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
 		 $this->_sendMail($user, $usermessgae);
        }
      }
-   } 
-   if ($user_id) {
-     $user = JUser::getInstance((int)$user_id);
-	 if (JPluginHelper::isEnabled('user', 'jfusion')) {
-	   plgSystemSocialLoginTools::create_jfusion_user($user, $newuser);
+	//updata user profile data on login the user
+	else if($newuser == false && $lr_settings['updateuserdata'] == 1){
+		
+	  $user = new JUser;
+	  $need_verification = false;
+	  
+		// If user registration is not allowed, show 403 not authorized.
+	    $usersConfig = JComponentHelper::getParams( 'com_users' );
+
+		// Remove special char if have.
+		$username = plgSystemSocialLoginTools::remove_unescapedChar($username);
+	    $name = plgSystemSocialLoginTools::remove_unescapedChar($name);
+		$user = JUser::getInstance($user_id);
+		  $user->name = $name;
+		  //update the user
+          if (!$user->save(true)) {
+            return false;
+          }
+          $user_id = $user->get ('id');
+	  // Saving user extra profile.
+	  // Trying to insert image.
+	  $profile_Image = $lrdata['thumbnail'];
+	  if (empty($profile_Image)) {
+		$profile_Image = JURI::root().'media/com_socialloginandsocialshare/images/noimage.png';
+	  }
+	  $userImage = $username . $user_id . '.jpg';
+	  $sociallogin_savepath = JPATH_ROOT.DS.'images/sociallogin/';
+	  plgSystemSocialLoginTools::insert_user_picture($sociallogin_savepath, $profile_Image, $userImage);
+
+	  // Remove.
+	  $sql = "DELETE FROM #__LoginRadius_users WHERE LoginRadius_id = " . $db->Quote ($lrdata['id']);
+	  $db->setQuery ($sql);
+	  if ($db->query ()) {
+		//Add new id to db
+		$sql = "INSERT INTO #__LoginRadius_users SET id = " . $db->quote ($user_id) . ",  LoginRadius_id = " . $db->Quote ($lrdata['id']).", provider = " . $db->Quote ($lrdata['Provider']).", lr_picture = " . $db->Quote ($userImage);
+		$db->setQuery ($sql);
+		$db->query();
 	  }
 	  
+	  // check for the community builder works.
+	  $query = "SHOW TABLES LIKE '%__comprofiler'";
+	  $db->setQuery($query);
+	  $cbtableexists = $db->loadResult();
+	  if (isset($cbtableexists)) {
+		plgSystemSocialLoginTools::make_cb_user($user_id, $profile_Image, $userImage, $lrdata);
+	  }
+
+	  // check for the k2 works.
+	  if (JPluginHelper::isEnabled('system', 'k2')) {
+		plgSystemSocialLoginTools::check_exist_comk2($user_id, $username, $profile_Image, $userImage, $lrdata);
+	  }
+	   // Check for kunena profile.
+	 if (JPluginHelper::isEnabled('system', 'kunena')) {
+		plgSystemSocialLoginTools::check_exist_comkunena($user_id, $username, $profile_Image, $userImage, $lrdata);
+	  }
+
+	  // check for the jom social works.
+	  $query = "SHOW TABLES LIKE '%__community_users'";
+	  $db->setQuery($query);
+	  $jomtableexists = $db->loadResult();
+	  if (isset($jomtableexists)) {
+		plgSystemSocialLoginTools::make_jomsocial_user($user_id, $profile_Image, $userImage);
+	  }	
+	}
+   } 
+   if ($user_id) {
+     $user = JUser::getInstance((int)$user_id);	  
 	  // Register session variables
 	  $session = JFactory::getSession();
 	  $query = "SELECT lr_picture from #__LoginRadius_users WHERE LoginRadius_id=".$db->Quote ($lrdata['id'])." AND id = " . $user->get('id');

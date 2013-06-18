@@ -39,7 +39,9 @@ if ($type == 'logout') : ?>
   <form action="<?php echo JRoute::_('index.php', true, $params->get('usesecure')); ?>" method="post" id="login-form">
   <div>
   <?php $db = JFactory::getDBO();
+  	   // get user's social id save in session
 	   $user_lrid = $session->get('user_lrid');
+	   // get user details from loginradius_users table
 	   $query = "SELECT * FROM ".$db->nameQuote('#__LoginRadius_users')." WHERE id = '".$user->get('id')."' AND LoginRadius_id=".$db->Quote ($user_lrid);
        $db->setQuery($query);
        $find_id = $db->loadResult();
@@ -54,7 +56,7 @@ if ($type == 'logout') : ?>
 	   }?>
 	   <?php $user_picture = $session->get('user_picture');?>
      <div style="float:left;"><a href="<?php echo 'index.php?option=com_socialloginandsocialshare&view=profile';?>" title="My Profile">
-<img src="<?php if (!empty($user_picture)) { echo JURI::root().'images'.DS.'sociallogin'.DS. $session->get('user_picture');} else {echo JURI::root().'media' . DS . 'com_socialloginandsocialshare' . DS .'images' . DS . 'noimage.png';}?>" alt="<?php echo $user->get('name');?>" style="width:50px; height:auto;background: none repeat scroll 0 0 #FFFFFF; border: 1px solid #CCCCCC; display: block; margin: 2px 4px 4px 0; padding: 2px;"></a>
+<img src="<?php if (!empty($user_picture)) { echo JURI::root().'images/sociallogin/'. $session->get('user_picture');} else {echo JURI::root().'media/com_socialloginandsocialshare/images/noimage.png';}?>" alt="<?php echo $user->get('name');?>" style="width:50px; height:auto;background: none repeat scroll 0 0 #FFFFFF; border: 1px solid #CCCCCC; display: block; margin: 2px 4px 4px 0; padding: 2px;"></a>
      </div>
      <div>
        <div class="login-greeting" >
@@ -81,14 +83,14 @@ if ($type == 'logout') : ?>
 <?php else : ?>
 
 <form action="<?php echo JRoute::_('index.php', true, $params->get('usesecure')); ?>" method="post" id="login-form" >
-	<?php if ($lr_settings['showicons'] == 0) {
+	<?php if (isset($lr_settings['showicons']) && ($lr_settings['showicons'] == 0)) {
 	        echo $params->get('pretext');
 	        if (!empty($lr_settings['apikey']) && (!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'] == "1") ) {?>
               <br />
               <div id="interfacecontainerdiv" class="interfacecontainerdiv"> </div>
       <?php }
 		  }
-          if ($lr_settings['showwithicons'] == 1): ?>
+          if (isset($lr_settings['showwithicons']) && ($lr_settings['showwithicons'] == 1)): ?>
             <div id='usetrad' name='usetrad'>
     <?php	if ($params->get('pretext')): ?>
 		      <div class="pretext"></div>
@@ -114,14 +116,14 @@ if ($type == 'logout') : ?>
 	     <input type="hidden" name="return" value="<?php echo $return; ?>" />
 	     <?php echo JHtml::_('form.token'); ?>
 	     </fieldset></div><?php endif; ?>
-	<?php if ($lr_settings['showicons'] == 1) {
+	<?php if (isset($lr_settings['showicons']) && ($lr_settings['showicons'] == 1)) {
 	        echo $params->get('pretext');
 	        if (!empty($lr_settings['apikey']) && (!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'] == "1")) {?>
               <br />
               <div id="interfacecontainerdiv" class="interfacecontainerdiv"> </div>
       <?php }
 		 }
-         if ($lr_settings['showwithicons'] == 1): ?>
+         if (isset($lr_settings['showwithicons']) && ($lr_settings['showwithicons'] == 1)): ?>
            <div id='usetrad1' name = 'usetrad1'>
            <ul>
 		    <li>

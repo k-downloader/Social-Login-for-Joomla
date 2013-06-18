@@ -7,13 +7,14 @@
 	<authorUrl>http://www.loginradius.com</authorUrl>
 	<creationDate>2012-01-01</creationDate>
 	<copyright>2012 to till</copyright>
-	<version>3.2</version>
+	<version>3.5</version>
 	<description>
 	LoginRadius enables social login for your joomla websites.
 </description>
 	<files>
 		<file plugin="socialloginandsocialshare">socialloginandsocialshare.php</file>
 		<file>LoginRadius.php</file>
+		<file>socialloginandsocialshare.xml</file>
 		<file>socialloginandsocialshare_helper.php</file>
 	</files>
 </extension>
