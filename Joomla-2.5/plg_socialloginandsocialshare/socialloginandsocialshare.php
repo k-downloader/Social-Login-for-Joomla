@@ -389,9 +389,11 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
 		  $user = JUser::getInstance($user_id);
 		  $user->name = $name;
 		  //update the user
+          $lrnotupdate = false;
           if (!$user->save(true)) {
-            return false;
+			$lrnotupdate = true;
           }
+		  if($lrnotupdate == false){
           $user_id = $user->get ('id');
 		 	  
 		  // Saving user extra profile.
@@ -436,10 +438,10 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
           $query = "SHOW TABLES LIKE '%__community_users'";
           $db->setQuery($query);
           $jomtableexists = $db->loadResult();
-          if (isset($jomtableexists)) {
-		    plgSystemSocialLoginTools::make_jomsocial_user($user_id, $profile_Image, $userImage);
-          }
-	    
+          	if (isset($jomtableexists)) {
+		    	plgSystemSocialLoginTools::make_jomsocial_user($user_id, $profile_Image, $userImage);
+          	}
+		  }
 		}
 	  } 
 	  

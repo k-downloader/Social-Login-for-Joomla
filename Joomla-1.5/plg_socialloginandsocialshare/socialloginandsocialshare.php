@@ -384,9 +384,11 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
 		$user = JUser::getInstance($user_id);
 		  $user->name = $name;
 		  //update the user
+          $lrnotupdate = false;
           if (!$user->save(true)) {
-            return false;
+			$lrnotupdate = true;
           }
+		  if($lrnotupdate == false){
           $user_id = $user->get ('id');
 	    
 		// Trying to insert image.
@@ -434,8 +436,9 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
           if (isset($jomtableexists)) {
 			plgSystemSocialLoginTools::make_jomsocial_user($user_id, $profile_Image, $userImage);
           }	
+		}
 	}
-	  } 
+} 
 	  if ($user_id) {
 	    
 	    $user =& JUser::getInstance((int)$user_id);

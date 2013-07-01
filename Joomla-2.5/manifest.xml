@@ -7,7 +7,7 @@
 	<authorUrl>http://www.loginradius.com</authorUrl>
 	<creationDate>2012-01-01</creationDate>
 	<copyright>2013, LoginRadius</copyright>
-	<version>3.5</version>
+	<version>3.6</version>
 	<description></description>
 	<installfile>install/install.php</installfile>
 	<uninstallfile>install/uninstall.php</uninstallfile>

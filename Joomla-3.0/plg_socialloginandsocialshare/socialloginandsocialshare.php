@@ -400,9 +400,11 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
 		$user = JUser::getInstance($user_id);
 		  $user->name = $name;
 		  //update the user
+          $lrnotupdate = false;
           if (!$user->save(true)) {
-            return false;
+			$lrnotupdate = true;
           }
+		  if($lrnotupdate == false){
           $user_id = $user->get ('id');
 	  // Saving user extra profile.
 	  // Trying to insert image.
@@ -450,6 +452,7 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
 	  }	
 	}
    } 
+}
    if ($user_id) {
      $user = JUser::getInstance((int)$user_id);	  
 	  // Register session variables
