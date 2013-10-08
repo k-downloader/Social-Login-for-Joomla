@@ -380,6 +380,9 @@ public static function check_exist_comk2($user_id, $username, $profile_Image, $u
  */
    public static function insert_user_picture($path, $profile_Image, $userImage) {
       $lr_settings = self::sociallogin_getsettings ();
+	  if(!JFolder::exists($path)){
+		  JFolder::create($path);
+	 }
 	  if ($lr_settings['useapi'] == 1) {
 	    $ch = curl_init($profile_Image);
         $fp = fopen($path . $userImage, 'wb');

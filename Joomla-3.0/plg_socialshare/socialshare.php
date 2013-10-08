@@ -96,7 +96,6 @@ class plgContentSocialShare  extends JPlugin {
 		if($this->shareOnBottomPos == 'on' && $this->sharehorizontal == '1'){
 			$app = JFactory::getApplication();
 			if (is_array($this->horizontal_articles)) {
-				$afterdiv .= $this->horizontalShare();
 			foreach ($this->horizontal_articles as $key=>$value) {
 			  if ($article->id == $value) {
 				$sharetitle = '<div style="margin:0;"><b>'.$this->sharetitle.'</b></div>';

@@ -115,14 +115,7 @@ if ($type == 'logout') : ?>
 	     <input type="hidden" name="task" value="user.login" />
 	     <input type="hidden" name="return" value="<?php echo $return; ?>" />
 	     <?php echo JHtml::_('form.token'); ?>
-	     </fieldset></div><?php endif; ?>
-	<?php if (isset($lr_settings['showicons']) && ($lr_settings['showicons'] == 1)) {
-	        echo $params->get('pretext');
-	        if (!empty($lr_settings['apikey']) && (!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'] == "1")) {?>
-              <br />
-              <div id="interfacecontainerdiv" class="interfacecontainerdiv"> </div>
-      <?php }
-		 }
+	     </fieldset></div><?php endif; 
          if (isset($lr_settings['showwithicons']) && ($lr_settings['showwithicons'] == 1)): ?>
            <div id='usetrad1' name = 'usetrad1'>
            <ul>
@@ -143,7 +136,15 @@ if ($type == 'logout') : ?>
 		     </li>
 		  <?php endif; ?>
 	      </ul></div><?php endif; ?>
-	      <?php if ($params->get('posttext')): ?>
+	      
+          	<?php if (isset($lr_settings['showicons']) && ($lr_settings['showicons'] == 1)) {
+	        echo $params->get('pretext');
+	        if (!empty($lr_settings['apikey']) && (!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'] == "1")) {?>
+              <br />
+              <div id="interfacecontainerdiv" class="interfacecontainerdiv"> </div>
+      <?php }
+		 }?>
+         <?php if ($params->get('posttext')): ?>
 		    <div class="posttext">
 		    <p><?php echo $params->get('posttext'); ?></p>
 		    </div>

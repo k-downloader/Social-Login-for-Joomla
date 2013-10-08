@@ -69,6 +69,7 @@
 		        <language tag="et-EE">et-EE/et-EE.com_socialloginandsocialshare.ini</language>
 		        <language tag="pl-PL">pl-PL/pl-PL.com_socialloginandsocialshare.ini</language>
 		        <language tag="pt-PT">pt-PT/pt-PT.com_socialloginandsocialshare.ini</language>
+				<language tag="ro-RO">ro-RO/ro-RO.com_socialloginandsocialshare.ini</language>
 	   </languages>
 	</administration>	
 	<languages folder="language">
@@ -86,6 +87,7 @@
 				<language tag="et-EE">et-EE/et-EE.com_socialloginandsocialshare.ini</language>
 				<language tag="pl-PL">pl-PL/pl-PL.com_socialloginandsocialshare.ini</language>
 				<language tag="pt-PT">pt-PT/pt-PT.com_socialloginandsocialshare.ini</language>
+				<language tag="ro-RO">ro-RO/ro-RO.com_socialloginandsocialshare.ini</language>
 		        <language tag="en-GB">en-GB/en-GB.mod_socialloginandsocialshare.ini</language>
 		        <language tag="fr-FR">fr-FR/fr-FR.mod_socialloginandsocialshare.ini</language>
 		        <language tag="ru-RU">ru-RU/ru-RU.mod_socialloginandsocialshare.ini</language>
@@ -100,6 +102,7 @@
 		        <language tag="et-EE">et-EE/et-EE.mod_socialloginandsocialshare.ini</language>
 		        <language tag="pl-PL">pl-PL/pl-PL.mod_socialloginandsocialshare.ini</language>
                 <language tag="pt-PT">pt-PT/pt-PT.mod_socialloginandsocialshare.ini</language>
+				<language tag="ro-RO">ro-RO/ro-RO.mod_socialloginandsocialshare.ini</language>
           </languages>
 	
 	<!-- Modules -->

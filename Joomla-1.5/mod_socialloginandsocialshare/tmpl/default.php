@@ -89,16 +89,7 @@ if(!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'
 	</p>
 	<?php endif; ?>
 	<input type="submit" name="Submit"  style="margin-left:10px;" class="button" value="<?php echo JText::_('LOGIN') ?>" />
-	</div><?php endif; ?>
-	
-	<?php 
-	if ($lr_settings['showicons'] == 1) {
-	        echo $params->get('pretext');
-	        if (!empty($lr_settings['apikey']) && (!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'] == "1") ){?>
-              <br />
-              <div id="interfacecontainerdiv" class="interfacecontainerdiv"> </div>
-      <?php }
-		 }
+	</div><?php endif; 
 	if ($lr_settings['showwithicons'] == 1): ?>
 <div id='usetrad1' name = 'usetrad1'>
 	<ul>
@@ -119,38 +110,18 @@ if(!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'
 		</li>
 		<?php endif; ?>
 	</ul></div><?php endif; ?>
-	<?php echo $params->get('posttext'); ?>
+    <?php 
+	if ($lr_settings['showicons'] == 1) {
+	        echo $params->get('pretext');
+	        if (!empty($lr_settings['apikey']) && (!isset($lr_settings['enableSocialLogin']) || $lr_settings['enableSocialLogin'] == "1") ){?>
+              <br />
+              <div id="interfacecontainerdiv" class="interfacecontainerdiv"> </div>
+      <?php }
+		 }
+	echo $params->get('posttext'); ?>
 	<input type="hidden" name="option" value="com_user" />
 	<input type="hidden" name="task" value="login" />
 	<input type="hidden" name="return" value="<?php echo $return; ?>" />
 	<?php echo JHTML::_( 'form.token' );?>
 	</form>
-	<?php 
-	// Adding column if uses old version.
-	/*$provider_exists = false;$pic_exists = false;
-	$db =& JFactory::getDBO();
-    $columns = "show columns from #__LoginRadius_users";
-    $db->setQuery( $columns );
-    if ($rows = $db->loadObjectList())  {
-      foreach ($rows as $row)  {
-         if ($row->Field == 'provider') {
-            $provider_exists = true;
-            break;
-          }
-		  if ($row->Field == 'lr_picture') {
-            $pic_exists = true;
-            break;
-          }
-      }
-    }     
-    if (!$provider_exists) {
-       $query = "ALTER TABLE #__LoginRadius_users ADD provider varchar(255) NULL";
-       $db->setQuery( $query );
-       $db->query();
-    }
-	if (!$pic_exists) {
-       $query = "ALTER TABLE #__LoginRadius_users ADD lr_picture varchar(255) NULL";
-       $db->setQuery( $query );
-       $db->query();
-    }*/
-	 endif; ?>
+	<?php endif; ?>

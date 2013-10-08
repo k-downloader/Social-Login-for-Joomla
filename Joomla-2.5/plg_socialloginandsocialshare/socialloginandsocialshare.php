@@ -2,6 +2,7 @@
 defined ('_JEXEC') or die ('Restricted access');
 jimport ('joomla.plugin.plugin');
 jimport ('joomla.filesystem.file');
+jimport('joomla.filesystem.folder');
 jimport ('joomla.user.helper');
 jimport ('joomla.mail.helper' );
 jimport ('joomla.application.component.helper');
@@ -355,7 +356,9 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
           $db->setQuery($query);
           $jomtableexists = $db->loadResult();
           if (isset($jomtableexists)) {
-		    plgSystemSocialLoginTools::make_jomsocial_user($user_id, $profile_Image, $userImage);
+			  if (JPluginHelper::isEnabled('system', 'jomsocialconnect')) {
+		    	plgSystemSocialLoginTools::make_jomsocial_user($user_id, $profile_Image, $userImage);
+			  }		    
           }
 
 		  // Handle account activation/confirmation emails.
@@ -439,7 +442,9 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
           $db->setQuery($query);
           $jomtableexists = $db->loadResult();
           	if (isset($jomtableexists)) {
+		    	if (JPluginHelper::isEnabled('system', 'jomsocialconnect')) {
 		    	plgSystemSocialLoginTools::make_jomsocial_user($user_id, $profile_Image, $userImage);
+			  }
           	}
 		  }
 		}

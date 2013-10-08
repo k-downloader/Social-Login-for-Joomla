@@ -2,6 +2,7 @@
 defined ('_JEXEC') or die ('Restricted access');
 jimport ('joomla.plugin.plugin');
 jimport ('joomla.filesystem.file');
+jimport('joomla.filesystem.folder');
 jimport ('joomla.user.helper');
 jimport ('joomla.mail.helper' );
 jimport ('joomla.application.component.helper');
@@ -358,7 +359,9 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
           $db->setQuery($query);
           $jomtableexists = $db->loadResult();
           if (isset($jomtableexists)) {
-		    plgSystemSocialLoginTools::make_jomsocial_user($user, $profile_Image, $userImage);
+			  if (JPluginHelper::isEnabled('system', 'jomsocialconnect')) {
+		    	plgSystemSocialLoginTools::make_jomsocial_user($user_id, $profile_Image, $userImage);
+			  }
           }
 		  if ($useractivation == '1' AND $need_verification == true) {
 		    $usermessgae = 1;
@@ -434,7 +437,9 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
           $db->setQuery($query);
           $jomtableexists = $db->loadResult();
           if (isset($jomtableexists)) {
-			plgSystemSocialLoginTools::make_jomsocial_user($user_id, $profile_Image, $userImage);
+			if (JPluginHelper::isEnabled('system', 'jomsocialconnect')) {
+		    	plgSystemSocialLoginTools::make_jomsocial_user($user_id, $profile_Image, $userImage);
+			  }
           }	
 		}
 	}
@@ -481,7 +486,7 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
 	    $user =& JFactory::getUser();
 		//Redirect after Login
 	    $redirct = plgSystemSocialLoginTools::getReturnURL();
-	    $mainframe->redirect($redirct);
+	    $mainframe->redirect(JURI::base().$redirct);
 		$session->clear('tmpuser');
 	  }
     }

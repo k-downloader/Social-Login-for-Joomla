@@ -97,16 +97,15 @@ $loc = (isset($_SERVER['REQUEST_URI']) ? urlencode($http.$_SERVER["HTTP_HOST"].$
 	<li>
 	<form action="<?php echo JRoute::_( 'index.php' ); ?>" method="post" name="userform" autocomplete="off" class="form-validate">
 	<?php if ($row->LoginRadius_id == $session->get('user_lrid')) {
-	        $msg = '<span style="color:red;">'.JText::_('COM_SOCIALLOGIN_LINK_ACCOUNT_MSGONE').'</span>';   
+	        $msg = '<span style="color:green;">'.JText::_('COM_SOCIALLOGIN_LINK_ACCOUNT_MSGONE').'</span>';   
 	      }
 		  else {
 		    $msg = JText::_('COM_SOCIALLOGIN_LINK_ACCOUNT_MSG');
 		  }?>
 		 
-	        <span style="margin-right:5px;"> <img src="<?php echo 'administrator/components/com_socialloginandsocialshare/assets/img/'.$row->provider.'.png'; ?>" /></span>
-			
+	       			
 			<?php echo $msg;?>
-			<b><?php echo $row->provider; ?></b>
+			<span style="margin-right:5px;"> <img src="<?php echo 'administrator/components/com_socialloginandsocialshare/assets/img/'.$row->provider.'.png'; ?>" /></span>
 			<button type="submit" class="buttondelete" onclick="submitbutton( this.form );return false;"><span><?php echo JText::_('COM_SOCIALLOGIN_LINK_ACCOUNT_REMOVE'); ?></span></button>
 	     <input type="hidden" name="id" value="<?php echo $this->user->get('id');?>" />
 	     <input type="hidden" name="gid" value="<?php echo $this->user->get('gid');?>" />

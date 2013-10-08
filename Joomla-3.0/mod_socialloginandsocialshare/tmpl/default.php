@@ -103,13 +103,20 @@ JHtml::_('bootstrap.tooltip');
 				<button type="submit" tabindex="3" name="Submit" class="btn btn-primary btn"><?php echo JText::_('JLOGIN') ?></button>
 			</div>
 		</div>
-		<?php
+        <?php
 			$usersConfig = JComponentHelper::getParams('com_users');
 			if ($usersConfig->get('allowUserRegistration')) : ?>
 			<ul class="unstyled">
 				<li>
 					<a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>">
-					<?php echo JText::_('MOD_LOGINRADIUS_REGISTER'); ?> <i class="icon-arrow-right"></i></a>
+					<?php echo JText::_('MOD_LOGIN_REGISTER'); ?> <span class="icon-arrow-right"></span></a>
+				</li>
+				<li>
+					<a href="<?php echo JRoute::_('index.php?option=com_users&view=remind'); ?>">
+					  <?php echo JText::_('MOD_LOGIN_FORGOT_YOUR_USERNAME'); ?></a>
+				</li>
+				<li>
+					<a href="<?php echo JRoute::_('index.php?option=com_users&view=reset'); ?>"><?php echo JText::_('MOD_LOGIN_FORGOT_YOUR_PASSWORD'); ?></a>
 				</li>
 
 			</ul>
@@ -136,6 +143,7 @@ JHtml::_('bootstrap.tooltip');
 			   <div id="interfacecontainerdiv" class="interfacecontainerdiv"></div> 
       <?php }
 		 }
+		 
 	 if ($params->get('posttext')): ?>
 		<div class="posttext">
 		<p><?php echo $params->get('posttext'); ?></p>

@@ -107,16 +107,13 @@ if (!defined('DS')) {
 	<li>
 	<form id="member-profile" action="<?php echo JRoute::_('index.php?option=com_socialloginandsocialshare&task=profile.delmap'); ?>" method="post" class="form-validate" enctype="multipart/form-data">
 	<?php if ($row->LoginRadius_id == $session->get('user_lrid')) {
-	        $msg = '<span style="color:red;">'.JText::_('COM_SOCIALLOGIN_LINK_ACCOUNT_MSGONE').'</span>';   
+	        $msg = '<span style="color:green;">'.JText::_('COM_SOCIALLOGIN_LINK_ACCOUNT_MSGONE').'</span>';   
 	      }
 		  else {
 		    $msg = JText::_('COM_SOCIALLOGIN_LINK_ACCOUNT_MSG');
 		  }?>
-		 
+		 <?php echo $msg;?>
 	        <span style="margin-right:5px;"> <img src="<?php echo 'administrator/components/com_socialloginandsocialshare/assets/img/'.$row->provider.'.png'; ?>" /></span>
-			
-			<?php echo $msg;?>
-			<b><?php echo $row->provider; ?></b>
 			<button type="submit" class="buttondelete"><span><?php echo JText::_('COM_SOCIALLOGIN_LINK_ACCOUNT_REMOVE'); ?></span></button><input type="hidden" name="option" value="com_socialloginandsocialshare" />
 			<input type="hidden" name="task" value="profile.delmap" />
 			<input type="hidden" name="mapid" value="<?php echo $row->provider; ?>" />

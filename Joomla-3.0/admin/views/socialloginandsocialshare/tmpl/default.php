@@ -755,13 +755,13 @@ echo JHtml::_('tabs.panel', JText::_('COM_SOCIALLOGIN_PANEL_SHARE'), 'panel2');
 	<ul class="help_ul">
   <li><a href="http://support.loginradius.com/customer/portal/articles/1018228-joomla-social-login-installation-configuration-and-troubleshooting" target="_blank"><?php echo JText::_('COM_SOCIALLOGIN_EXTENSION_HELP_LINK_ONE'); ?></a></li>
   <li><a href="http://support.loginradius.com/customer/portal/articles/677100-how-to-get-loginradius-api-key-and-secret" target="_blank"><?php echo JText::_('COM_SOCIALLOGIN_EXTENSION_HELP_LINK_TWO'); ?></a></li>
-	<li><a href="http://support.loginradius.com/customer/portal/topics/272883-joomla-extension/articles" target="_blank"><?php echo JText::_('COM_SOCIALLOGIN_EXTENSION_HELP_LINK_THREE'); ?></a></li>
+	
 	<li><a href="http://community.loginradius.com/" target="_blank"><?php echo JText::_('COM_SOCIALLOGIN_EXTENSION_HELP_LINK_FOUR'); ?></a></li>
 	<li><a href="https://www.loginradius.com/Loginradius/About" target="_blank"><?php echo JText::_('COM_SOCIALLOGIN_EXTENSION_HELP_LINK_FIVE'); ?></a></li>
-		<li><a href="https://www.loginradius.com/product/sociallogin" target="_blank"><?php echo JText::_('COM_SOCIALLOGIN_EXTENSION_HELP_LINK_SIX'); ?></a></li>
+		
 	<li><a href="https://www.loginradius.com/loginradius-for-developers/loginRadius-cms" target="_blank"><?php echo JText::_('COM_SOCIALLOGIN_EXTENSION_HELP_LINK_EIGHT'); ?></a></li>
 	<li><a href="https://www.loginradius.com/loginradius-for-developers/loginradius-sdks" target="_blank"><?php echo JText::_('COM_SOCIALLOGIN_EXTENSION_HELP_LINK_NINE'); ?></a></li>
-	<li><a href="https://www.loginradius.com/loginradius/Testimonials" target="_blank"><?php echo JText::_('COM_SOCIALLOGIN_EXTENSION_HELP_LINK_TEN'); ?></a></li>
+	
 </ul>
 </div>
 <div style="clear:both;"></div>
