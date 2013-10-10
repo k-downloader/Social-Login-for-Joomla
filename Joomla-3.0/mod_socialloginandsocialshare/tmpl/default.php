@@ -109,14 +109,14 @@ JHtml::_('bootstrap.tooltip');
 			<ul class="unstyled">
 				<li>
 					<a href="<?php echo JRoute::_('index.php?option=com_users&view=registration'); ?>">
-					<?php echo JText::_('MOD_LOGIN_REGISTER'); ?> <span class="icon-arrow-right"></span></a>
+					<?php echo JText::_('MOD_LOGINRADIUS_REGISTER'); ?> <span class="icon-arrow-right"></span></a>
 				</li>
 				<li>
 					<a href="<?php echo JRoute::_('index.php?option=com_users&view=remind'); ?>">
-					  <?php echo JText::_('MOD_LOGIN_FORGOT_YOUR_USERNAME'); ?></a>
+					  <?php echo JText::_('MOD_LOGINRADIUS_FORGOT_YOUR_USERNAME'); ?></a>
 				</li>
 				<li>
-					<a href="<?php echo JRoute::_('index.php?option=com_users&view=reset'); ?>"><?php echo JText::_('MOD_LOGIN_FORGOT_YOUR_PASSWORD'); ?></a>
+					<a href="<?php echo JRoute::_('index.php?option=com_users&view=reset'); ?>"><?php echo JText::_('MOD_LOGINRADIUS_FORGOT_YOUR_PASSWORD'); ?></a>
 				</li>
 
 			</ul>
