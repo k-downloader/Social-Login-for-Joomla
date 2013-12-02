@@ -482,7 +482,7 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
 	  $user = JFactory::getUser();
 	  
 	  //Redirect after Login
-	  $redirct = plgSystemSocialLoginTools::getReturnURL();
+	  $redirct = plgSystemSocialLoginTools::getReturnURL($newuser);
 	  $mainframe->redirect($redirct);
 	  $session->clear('tmpuser');
 	}

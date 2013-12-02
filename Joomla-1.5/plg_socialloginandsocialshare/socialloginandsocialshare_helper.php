@@ -181,10 +181,14 @@ class plgSystemSocialLoginTools {
 /*
  * Function getting return url after login.
  */
-   public static function getReturnURL() {
+   public static function getReturnURL($reg_user=false) {
      $lr_settings = self::sociallogin_getsettings ();
 	 $url=null;
-     if ($itemid = $lr_settings['setredirct']) { 
+     $setredirct = $lr_settings['setredirct'];
+	 if($reg_user){
+		$setredirct = $lr_settings['setregredirct'];
+	}
+     if ($itemid = $setredirct) { 
         $menu =& JSite::getMenu();  
         $item = $menu->getItem($itemid);
         if ($item) {

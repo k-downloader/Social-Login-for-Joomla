@@ -98,38 +98,6 @@ class plgSystemSocialLoginTools {
 	  }
 	  return $username;
    }
-
-/*
- * Function that saves users extra profile.
- */   
-   /*public static function save_userprofile_data($user_id, $lrdata) {
-      // Save the profile data of user
-	   $db = JFactory::getDBO ();
-	   $data = array();
-	   $data['profile']['address1'] = $lrdata['address1'];
-	   $data['profile']['address2'] = $lrdata['address2'];
-	   $data['profile']['city'] = $lrdata['city'];
-	   //$data['profile']['country'] = $lrdata['country'];
-	   $data['profile']['dob'] = $lrdata['dob'];
-	   $data['profile']['aboutme'] = $lrdata['aboutme'];
-	   $data['profile']['website'] = $lrdata['website'];
-	    //Sanitize the date
-	   if (!empty($data['profile']['dob'])) {
-		 //$date = new JDate($data['profile']['dob']);
-		 $date = JFactory::getDate();
-		 $data['profile']['dob'] = $date->toFormat('%Y-%m-%d');
-	   }
-	   else {
-		 $data['profile']['dob'] = $data['profile']['dob'];
-       }
-	   $tuples = array();
-       $order	= 1;
-       foreach ($data['profile'] as $k => $v) {
-		  $tuples[] = '('.$user_id.', '.$db->quote('profile.'.$k).', '.$db->quote($v).', '.$order++.')';
-       }
-       $db->setQuery('INSERT INTO #__user_profiles VALUES '.implode(', ', $tuples));
-       $db->query();
-   }*/
    
 /*
  * Function that checks k2 component exists.
@@ -214,15 +182,19 @@ public static function check_exist_comk2($user_id, $username, $profile_Image, $u
 /*
  * Function getting return url after login.
  */
-   public static function getReturnURL() {
+   public static function getReturnURL($reg_user=false) {
      $app = JFactory::getApplication();
      $router = $app->getRouter();
 	 $lr_settings = self::sociallogin_getsettings ();
 	 $check_rewrite = $app->getCfg('sef_rewrite');
 	 $db = JFactory::getDbo();
      $url = null;
-     if ($itemid = $lr_settings['setredirct']) {
-	   if ($lr_settings['setredirct'] != '') {
+    $setredirct = $lr_settings['setredirct'];
+	 if($reg_user){
+		$setredirct = $lr_settings['setregredirct'];
+	}
+     if ($itemid = $setredirct) {
+	   if ($setredirct != '') {
          if ($router->getMode() == JROUTER_MODE_SEF) {
 		   $query = "SELECT path FROM #__menu WHERE id = ".$itemid;
            $db->setQuery($query);
@@ -456,49 +428,4 @@ public static function check_exist_comkunena($user_id, $username, $profile_Image
 	$db->setQuery($kunenaquery);
 	$db->query();
 }
-   
-/*
-
- * Function that make compitable with jfusion.
-
- */
-/*
-public static function create_jfusion_user(&$user, $newuser) {
-include_once JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_jfusion' . DS . 'models' . DS . 'model.jfusion.php';
-include_once JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_jfusion' . DS . 'models' . DS . 'model.factory.php';
-$options = array('entry_url' => JURI::root() . 'index.php?option=com_user&task=login', 'silent' => true);
-$slaves = JFusionFunction::getPlugins();
-foreach ($slaves as $slave) {
-if ( $slave->dual_login == 1) {
-$JFusionSlave = JFusionFactory::getUser($slave->name);
-$status = array();
-$slaveUser = $JFusionSlave->getUser($user);
-if (empty($slaveUser)) {
-if ($slave->name == 'vbulletin') {
-$slaveUser->password_clear = $user->password;
-$slaveUser->password = $user->password;
-$slaveUser->userid = $user->id;
-$slaveUser->username = $user->username;
-$slaveUser->email = $user->email;
-$JFusionSlave->createUser($slaveUser, $status);
-}
-else {
-$JFusionSlave->createUser($user, $status);
-}
-$slaveUser = $JFusionSlave->getUser($user);
-}
-if ($newuser == false) {
-$user->password_clear = $user->password;
-$slaveUser->password_clear = $user->password_clear;
-$JFusionSlave->updatePassword($user,$slaveUser,$status);
-}
-else {
-$user->password_clear = $user->password_clear;
-$slaveUser->password_clear = $user->password_clear;
-}
-$JFusionSlave->createSession($slaveUser, $options);
-}
-}
-}
-*/
 }

@@ -282,30 +282,53 @@ for(var i = 0; i < counterProvider.length; i++)
   <tr>
     <th class="head" colspan="2"><?php echo JText::_('COM_SOCIALLOGIN_SETTING_BASIC'); ?></small></th>
   </tr>
-  <tr>
-    <td colspan="2" ><span class="subhead"><?php echo JText::_('COM_SOCIALLOGIN_SETTING_BASIC_REDIRECT_DESC'); ?></span><br /><br />
-      <?php $db = JFactory::getDBO();
-      $query = "SELECT m.id, m.title,m.level,mt.menutype FROM #__menu AS m INNER JOIN #__menu_types AS mt ON mt.menutype = m.menutype WHERE mt.menutype = m.menutype AND m.published = '1' ORDER BY mt.menutype,m.level";
-      $db->setQuery($query);
-      $rows = $db->loadObjectList();?>
-      <?php $setredirct = (isset($this->settings['setredirct']) ? $this->settings['setredirct'] : "");?>
-      <select id="setredirct" name="settings[setredirct]">
-        <option value="" selected="selected">---Default---</option>
-        <?php foreach ($rows as $row) {?>
-        <option <?php if ($row->id == $setredirct) { echo " selected=\"selected\""; } ?>value="<?php echo $row->id;?>" >
-          <?php echo '<b>'.$row->menutype.'</b>';
-          if ($row->level == 1) { echo '-';}
-          if($row->level == 2) { echo '--';}
-          if($row->level == 3) { echo '---';}
-          if($row->level == 4) { echo '----';}
-          if($row->level == 5) { echo '-----';}
-            echo $row->title;?>
-        </option>
-      <?php }?>
-      </select>
-    </td>
-  </tr>	
-  <tr class="row_white">
+    <tr>
+        <td colspan="2" ><span class="subhead"><?php echo JText::_('COM_SOCIALLOGIN_SETTING_REGISTER_REDIRECT_DESC'); ?></span><br /><br />
+            <?php $db = JFactory::getDBO();
+            $query = "SELECT m.id, m.title,m.level,mt.menutype FROM #__menu AS m INNER JOIN #__menu_types AS mt ON mt.menutype = m.menutype WHERE mt.menutype = m.menutype AND m.published = '1' ORDER BY mt.menutype,m.level";
+            $db->setQuery($query);
+            $rows = $db->loadObjectList();?>
+            <?php $setregredirct = (isset($this->settings['setregredirct']) ? $this->settings['setregredirct'] : "");?>
+            <select id="setregredirct" name="settings[setregredirct]">
+                <option value="" selected="selected">---Default---</option>
+                <?php foreach ($rows as $row) {?>
+                    <option <?php if ($row->id == $setregredirct) { echo " selected=\"selected\""; } ?>value="<?php echo $row->id;?>" >
+                        <?php echo '<b>'.$row->menutype.'</b>';
+                        if ($row->level == 1) { echo '-';}
+                        if($row->level == 2) { echo '--';}
+                        if($row->level == 3) { echo '---';}
+                        if($row->level == 4) { echo '----';}
+                        if($row->level == 5) { echo '-----';}
+                        echo $row->title;?>
+                    </option>
+                <?php }?>
+            </select>
+        </td>
+    </tr>
+    <tr class="row_white">
+        <td colspan="2" ><span class="subhead"><?php echo JText::_('COM_SOCIALLOGIN_SETTING_BASIC_REDIRECT_DESC'); ?></span><br /><br />
+            <?php $db = JFactory::getDBO();
+            $query = "SELECT m.id, m.title,m.level,mt.menutype FROM #__menu AS m INNER JOIN #__menu_types AS mt ON mt.menutype = m.menutype WHERE mt.menutype = m.menutype AND m.published = '1' ORDER BY mt.menutype,m.level";
+            $db->setQuery($query);
+            $rows = $db->loadObjectList();?>
+            <?php $setredirct = (isset($this->settings['setredirct']) ? $this->settings['setredirct'] : "");?>
+            <select id="setredirct" name="settings[setredirct]">
+                <option value="" selected="selected">---Default---</option>
+                <?php foreach ($rows as $row) {?>
+                    <option <?php if ($row->id == $setredirct) { echo " selected=\"selected\""; } ?>value="<?php echo $row->id;?>" >
+                        <?php echo '<b>'.$row->menutype.'</b>';
+                        if ($row->level == 1) { echo '-';}
+                        if($row->level == 2) { echo '--';}
+                        if($row->level == 3) { echo '---';}
+                        if($row->level == 4) { echo '----';}
+                        if($row->level == 5) { echo '-----';}
+                        echo $row->title;?>
+                    </option>
+                <?php }?>
+            </select>
+        </td>
+    </tr>
+    <tr>
     <td colspan="2" ><span class="subhead"><?php echo JText::_('COM_SOCIALLOGIN_SETTING_LINK_DESC'); ?></span><br /><br />
         <?php $yeslink = "";
 		      $notlink = "";

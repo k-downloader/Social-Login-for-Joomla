@@ -114,13 +114,13 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
 	  
 	  // Find the not activate user.
 
-	    $query = "SELECT u.id FROM #__users AS u INNER JOIN #__LoginRadius_users AS lu ON lu.id = u.id WHERE lu.LoginRadius_id = '".$lrdata['id']."' AND u.activation != ''";
+	  /*  $query = "SELECT u.id FROM #__users AS u INNER JOIN #__LoginRadius_users AS lu ON lu.id = u.id WHERE lu.LoginRadius_id = '".$lrdata['id']."' AND u.activation != ''";
         $db->setQuery($query);
         $block_id = $db->loadResult();
         if (!empty($block_id) || $block_id) {
           JError::raiseWarning ('', JText::_ ('COM_SOCIALLOGIN_USER_NOTACTIVATE'));
           return false;
-        }
+        }*/
 		
 
 	  // Find the block user.
@@ -139,7 +139,7 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
 	    $useractivation = $usersConfig->get( 'useractivation' );
 		$query = "SELECT u.id FROM #__users AS u
      INNER JOIN #__LoginRadius_users AS lu ON lu.id = u.id
-     WHERE lu.LoginRadius_id = '".$lrdata['id']."' AND u.block = 0 AND u.activation = ''";
+     WHERE lu.LoginRadius_id = '".$lrdata['id']."' AND u.block = 0";
           $db->setQuery($query);
           $user_id = $db->loadResult();
 		$newuser = true;
@@ -225,13 +225,13 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
 	  }	  
 	  $query="SELECT u.id FROM #__users AS u
      INNER JOIN #__LoginRadius_users AS lu ON lu.id = u.id
-     WHERE lu.LoginRadius_id = '". $lrdata['id'] ."' AND u.block = 0 AND u.activation = ''";
+     WHERE lu.LoginRadius_id = '". $lrdata['id'] ."' AND u.block = 0";
       $db->setQuery($query);
       $user_id = $db->loadResult();
       
 	  // If not then check for email exist.
 	  if (empty($user_id)) {
-        $query = "SELECT id FROM #__users WHERE email='".$lrdata['email']."' AND block = 0 AND activation = '' ";
+        $query = "SELECT id FROM #__users WHERE email='".$lrdata['email']."' AND block = 0";
         $db->setQuery($query);
         $user_id = $db->loadResult();
 		if (!empty($user_id)) {
@@ -485,8 +485,9 @@ class plgSystemSocialLoginAndSocialShare extends JPlugin {
         $user->setLastVisit();
 	    $user =& JFactory::getUser();
 		//Redirect after Login
-	    $redirct = plgSystemSocialLoginTools::getReturnURL();
-	    $mainframe->redirect(JURI::base().$redirct);
+	    $redirct = plgSystemSocialLoginTools::getReturnURL($newuser);
+		if(empty($redirct)){$redirct = JURI::base();}
+	    $mainframe->redirect($redirct);
 		$session->clear('tmpuser');
 	  }
     }

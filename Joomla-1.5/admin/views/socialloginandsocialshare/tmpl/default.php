@@ -292,6 +292,39 @@ for(var i = 0; i < counterProvider.length; i++)
     <th class="head" colspan="2"><?php echo JText::_('COM_SOCIALLOGIN_SETTING_BASIC'); ?></small></th>
   </tr>
   <tr>
+    <td colspan="2" ><span class="subhead"><?php echo JText::_('COM_SOCIALLOGIN_SETTING_REGISTER_REDIRECT_DESC'); ?></span><br /><br />
+     <?php 
+$db = &JFactory::getDBO();
+$query = "SELECT m.id, m.alias,m.ordering,mt.menutype FROM #__menu AS m
+     INNER JOIN #__menu_types AS mt ON mt.menutype = m.menutype
+     WHERE mt.menutype = m.menutype AND m.published = '1' ORDER BY mt.menutype,m.ordering";
+$db->setQuery($query);
+$rows = $db->loadObjectList();
+?>
+<?php $setregredirct = (isset($this->settings['setregredirct']) ? $this->settings['setregredirct'] : "");?>
+<select id="setregredirct" name="settings[setregredirct]">
+<option value="" selected="selected">---Default---</option>
+<?php foreach ($rows as $row) {?>
+<option <?php if ($row->id == $setregredirct) { echo " selected=\"selected\""; } ?>value="<?php echo $row->id;?>" >
+<?php 
+  echo '<b>'.$row->menutype.'</b>&nbsp;&nbsp;';
+  if($row->ordering == 1) { echo '-';}
+  if($row->ordering == 2) { echo '--';}
+  if($row->ordering == 3) { echo '---';}
+  if($row->ordering == 4) { echo '----';}
+  if($row->ordering == 5) { echo '-----';}
+  if($row->ordering == 6) { echo '------';}
+  if($row->ordering == 7) { echo '-------';}
+  if($row->ordering == 8) { echo '--------';}
+  if($row->ordering == 9) { echo '---------';}
+  if($row->ordering == 10) { echo '----------';}
+  echo $row->alias;?>
+  </option>
+<?php }?>
+</select>
+    </td>
+  </tr>
+  <tr  class="row_white">
     <td colspan="2" ><span class="subhead"><?php echo JText::_('COM_SOCIALLOGIN_SETTING_BASIC_REDIRECT_DESC'); ?></span><br /><br />
      <?php 
 $db = &JFactory::getDBO();
@@ -324,7 +357,7 @@ $rows = $db->loadObjectList();
 </select>
     </td>
   </tr>	
-  <tr class="row_white">
+  <tr>
     <td colspan="2" ><span class="subhead"><?php echo JText::_('COM_SOCIALLOGIN_SETTING_LINK_DESC'); ?></span><br /><br />
         <?php $yeslink = "";
 		      $notlink = "";
@@ -757,7 +790,7 @@ $rows = $db->loadObjectList();
 <div style="background:#EAF7FF; border: 1px solid #B3E2FF; overflow:auto; margin:0 0 10px 0;">
 	<h3 style="border-bottom:#000000 1px solid; margin:0px; padding:0 0 6px 0; border-bottom: 1px solid #B3E2FF; color: #000000; margin:10px;"><?php echo JText::_('COM_SOCIALLOGIN_EXTENSION_HELP'); ?></h3>
 	<ul class="help_ul">
-  <li><a href="http://support.loginradius.com/customer/portal/topics/272883-joomla-extension/articles" target="_blank"><?php echo JText::_('COM_SOCIALLOGIN_EXTENSION_HELP_LINK_ONE'); ?></a></li>
+  <li><a href="http://support.loginradius.com/customer/portal/articles/1018228-joomla-social-login-installation-configuration-and-troubleshooting" target="_blank"><?php echo JText::_('COM_SOCIALLOGIN_EXTENSION_HELP_LINK_ONE'); ?></a></li>
 
 		<li><a href="http://support.loginradius.com/customer/portal/articles/677100-how-to-get-loginradius-api-key-and-secret" target="_blank"><?php echo JText::_('COM_SOCIALLOGIN_EXTENSION_HELP_LINK_TWO'); ?></a></li>
 

@@ -7,7 +7,7 @@
     <authorUrl>www.LoginRadius.com</authorUrl>
     <copyright>Copyright (C) 2012 - till Open Source Matters. All rights reserved.</copyright>
     <license>GPL 2.0</license>
-    <version>3.6</version>
+    <version>3.7</version>
     <description>LoginRadius enables social login and social share for your joomla websites.</description>
 <files>
 	<filename module="mod_socialloginandsocialshare">mod_socialloginandsocialshare.php</filename>

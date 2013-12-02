@@ -103,35 +103,7 @@ setQuery ($sql);
 /*
  * Function that saves users extra profile.
  */   
-   /*public static function save_userprofile_data($user_id, $lrdata) {
-      // Save the profile data of user
-	   $db = JFactory::getDBO ();
-	   $data = array();
-	   $data['profile']['address1'] = $lrdata['address1'];
-	   $data['profile']['address2'] = $lrdata['address2'];
-	   $data['profile']['city'] = $lrdata['city'];
-	   //$data['profile']['country'] = $lrdata['country'];
-	   $data['profile']['dob'] = $lrdata['dob'];
-	   $data['profile']['aboutme'] = $lrdata['aboutme'];
-	   $data['profile']['website'] = $lrdata['website'];
-	    //Sanitize the date
-	   if (!empty($data['profile']['dob'])) {
-		 //$date = new JDate($data['profile']['dob']);
-		 $date = JFactory::getDate();
-		 $data['profile']['dob'] = $date->toFormat('%Y-%m-%d');
-	   }
-	   else {
-		 $data['profile']['dob'] = $data['profile']['dob'];
-       }
-	   $tuples = array();
-       $order	= 1;
-       foreach ($data['profile'] as $k => $v) {
-		  $tuples[] = '('.$user_id.', '.$db->quote('profile.'.$k).', '.$db->quote($v).', '.$order++.')';
-       }
-       $db->setQuery('INSERT INTO #__user_profiles VALUES '.implode(', ', $tuples));
-       $db->query();
-   }*/
-   
+    
 /*
  * Function that checks k2 component exists.
  */
@@ -214,14 +186,18 @@ setQuery ($sql);
 /*
  * Function getting return url after login.
  */
-   public static function getReturnURL() {
+   public static function getReturnURL($reg_user=false) {
      $app = JFactory::getApplication();
      $router = $app->getRouter();
 	 $lr_settings = self::sociallogin_getsettings ();
 	 $check_rewrite = $app->getCfg('sef_rewrite');
      $url = '';
 	 $db = JFactory::getDbo();
-     if ($itemid = $lr_settings['setredirct']) {
+	 $setredirct = $lr_settings['setredirct'];
+	 if($reg_user){
+		$setredirct = $lr_settings['setregredirct'];
+	}
+     if ($itemid = $setredirct) {
        if ($router->getMode() == JROUTER_MODE_SEF) {
 		   $query = "SELECT path FROM #__menu WHERE id = ".$itemid;
            $db->setQuery($query);
